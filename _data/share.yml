@@ -13,19 +13,14 @@ platforms:
   - type: Telegram
     icon: "fab fa-telegram"
     link: "https://t.me/share/url?url=URL&text=TITLE"
-    
-  # - type: QQ
-  #   icon: "icon-QQ"
-  #   link: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
-    
-  # - name: QQ
-  #   icon: "fab fa-qq"
-  #   url: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
+      
+  - type: QQ
+    icon: "fab fa-qq"
+    link: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
 
   - type: WeChat
     icon: "fab fa-weixin"
     link: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=URL"
-
 
   # Uncomment below if you need to.
   #
