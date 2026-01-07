@@ -18,13 +18,13 @@ platforms:
   #   icon: "icon-QQ"
   #   link: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
     
-  - name: QQ
-    icon: "fab fa-qq"
-    url: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
+  # - name: QQ
+  #   icon: "fab fa-qq"
+  #   url: "https://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
 
-  # - name: WeChat
-  #   icon: "fab fa-weixin"
-  #   url: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=URL"
+  - type: WeChat
+    icon: "fab fa-weixin"
+    url: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=URL"
 
 
   # Uncomment below if you need to.
