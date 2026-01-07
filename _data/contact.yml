@@ -10,9 +10,17 @@
   icon: "fas fa-envelope"
   noblank: true # open link in current tab
 
-- type: rss
-  icon: "fas fa-rss"
-  noblank: true
+# - type: rss
+#   icon: "fas fa-rss"
+#   noblank: true
+
+- zhihu:
+  icon: "fab fa-zhihu"   
+  url: "https://www.zhihu.com/people/feng-yi-bing-zhou"
+
+- bilibili:
+  icon: "fas fa-tv"
+  url: "https://space.bilibili.com/20255333"
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon
