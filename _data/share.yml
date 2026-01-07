@@ -13,6 +13,18 @@ platforms:
   - type: Telegram
     icon: "fab fa-telegram"
     link: "https://t.me/share/url?url=URL&text=TITLE"
+    
+  - type: QQ
+    icon: "icon-QQ"
+    link: "http://connect.qq.com/widget/shareqq/index.html?url=URL&title=TITLE"
+
+  - type: QQ 空间
+    icon: "icon-qzone"
+    link: "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=URL&title=TITLE"
+
+  - type: 微博
+    icon: "icon-weibo"
+    link: "http://service.weibo.com/share/share.php?title=TITLE&url=URL"
 
   # Uncomment below if you need to.
   #
