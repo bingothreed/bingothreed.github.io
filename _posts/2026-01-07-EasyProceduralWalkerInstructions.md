@@ -10,12 +10,12 @@ image:
     path: ../assets/img/photos/EasyProceduralWalker_1.png
 ---
 
-# 1. Introduction
+## 1. Introduction
 
 EasyProceduralWalker is a simple UE plugin for multi-legged creature locomotion. Built on TwoBoneIK, it is limited to driving only two bones (three joints) per leg. 
 Before you use the plugin, you must know how to set a TwoBoneIK node for one leg
 
-# 2. Usage
+## 2. Usage
 Create an “Easy Procedural Walker” node in your AnimGraph, and connect to “Mesh Space Ref Pose” node as input and “Output Pose” as output 
 ![blueprint](../assets/img/photos/EasyProceduralWalker_2.png)
 
@@ -26,7 +26,7 @@ In the “Details” pannel, there are thre mode:
 
 ![blueprint](../assets/img/photos/EasyProceduralWalker_3.png)
 
-## 2.1 SetBody
+### 2.1 SetBody
 
 1. In `EPW Mode [critical & Important]` tab
  - "Debug Mode": Set Body
