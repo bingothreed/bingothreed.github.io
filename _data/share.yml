@@ -22,19 +22,15 @@ platforms:
     icon: "icon-qzone"
     link: "https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=URL&title=TITLE"
 
-  - type: 微博
-    icon: "icon-weibo"
-    link: "https://service.weibo.com/share/share.php?title=TITLE&url=URL"
-
   # Uncomment below if you need to.
   #
   # - type: Linkedin
   #   icon: "fab fa-linkedin"
   #   link: "https://www.linkedin.com/feed/?shareActive=true&shareUrl=URL"
   #
-  # - type: Weibo
-  #   icon: "fab fa-weibo"
-  #   link: "https://service.weibo.com/share/share.php?title=TITLE&url=URL"
+  - type: Weibo
+    icon: "fab fa-weibo"
+    link: "https://service.weibo.com/share/share.php?title=TITLE&url=URL"
   #
   # - type: Mastodon
   #   icon: "fa-brands fa-mastodon"
