@@ -12,53 +12,86 @@ image:
 
 ## 1. Introduction
 
-EasyProceduralWalker is a simple UE plugin for multi-legged creature locomotion. Built on TwoBoneIK, it is limited to driving only two bones (three joints) per leg. 
-Before you use the plugin, you must know how to set a TwoBoneIK node for one leg
+EasyProceduralWalker is a simple UE plugin for multi-legged creature locomotion. Built on TwoBoneIK, it can drive only two bones (three joints) per leg.  
+Before using the plugin, you need to know how to set up a TwoBoneIK node for a single leg.
 
 ## 2. Usage
-Create an “Easy Procedural Walker” node in your AnimGraph, and connect to “Mesh Space Ref Pose” node as input and “Output Pose” as output 
+Create an “Easy Procedural Walker” node in your AnimGraph, connect its input to the “Mesh Space Ref Pose” node, and connect its output to the “Output Pose” node.
 ![blueprint](../assets/img/photos/EasyProceduralWalker_2.png)
 
-In the “Details” pannel, there are thre mode: 
-- **SetBody mode**: set up your two bone ik parameters for each leg 
-- **AnimBP Preview mode**: Use a root motion to preview the result 
-- **Game Play mode**: Play in your scene
+In the **Details** panel there are three modes:  
+- **SetBody**: configure the two-bone-IK parameters for each leg  
+- **AnimBP Preview**: use root motion to preview the results  
+- **Game Play**: play in the level
 
 ![blueprint](../assets/img/photos/EasyProceduralWalker_3.png)
 
 ### 2.1 SetBody
 
-1. In `EPW Mode [critical & Important]` tab
- - "Debug Mode": Set Body
- - "Current Leg Index": 0
+**Step 1: In the `EPW Mode [Critical & Important]` tab**  
+- Set **Debug Mode** to *SetBody*  
+- Set **Current Leg Index** to *0* which means show the first leg's TwoBoneIK debug UI.
+
 ![SetBody](../assets/img/gifs/1_setbody.gif)
 
-2. In `EPW Settings` tab
-- Setup "Root Bone" and “Body Bone”
+**Step2: In `EPW Settings` tab**
+- Set **Root Bone** and **Body Bone**
 
 ![SetBody](../assets/img/gifs/2_1_setbody.gif)
-- Add leges and set the "IKBone"、"Effector Location" and "Joint Target Location" individually
-    - IKBone: the end bone for your leg always known as foot
-    - Effector Location: the global position of the end joint    
-    - Joint Target Location: the global position where the middle joint aim at.
 
-> Open your SkeletalMesh asset and copy the gobal position and paste to the corresponding joint Location.
+- To add each leg, first adjust the **Current Leg Index**​ to the corresponding number. Then, set its `IKBone`, `Effector Location`, and `Joint Target Location`.
+  - **IKBone**: the end bone of the leg (usually the foot)  
+  - **Effector Location**: the world-space position of the foot joint  
+  - **Joint Target Location**: the world-space point the middle joint aims at
+
+> Open your Skeletal Mesh asset, copy the global position, and paste it into the corresponding joint location.
 {: .prompt-tip }
 
 ![blueprint](../assets/img/photos/EasyProceduralWalker_5.png)
-The final result for the left leg should look like
+The final result for the left leg should look like this.
 ![blueprint](../assets/img/photos/EasyProceduralWalker_6.png)
 
-3. In `EPW Step Settings` tab
-- If your foot has heel/shoes, enable `Set Default Heel Height` and set the heel height for each leg in `Default Heel Height`
-- If you want some legs move at the same time period, enable `Set Timings Manually` and set a float number for each leg. 
-    - Example: Number $0.3$ means the leg belongs to the $0$ group and will move at 30% total time. total time means how long will it take during finishing one step
-- Timings Offset: Only one leg in each group by default.
+** Step3. In `EPW Step Settings` tab **
+- If the foot has a heel or shoe, enable **Set Default Heel Height** and enter the heel height for each leg in **Default Heel Height**.  
+- To make several legs move in the same time slot, enable **Set Timings Manually** and assign a float to each leg.  
+  - Example: the value 0.3 puts the leg in group 0 and makes it start moving at 30 % of that group’s cycle (one complete step).  
+- **Timings Offset**: by default, only one leg is defined per group.  
 
-> Only the legs in the last group both finish moving, the lges in the next group will start move. The integer part defines which group the leg belongs to, while the fractional part defines the percentage of the group's cycle at which that leg starts to move.
+> The next group starts only after every leg in the previous group has finished. The integer part of the value sets the group; the fractional part sets when, within that group’s cycle, the leg begins to move.
 {: .prompt-info }
 
-4. In `EPW Trace`
-- Show Predict Pos: Show the next target position for each foot and the predicted Joint Target Location too.
-- Show Line Ray: For debuging Line Ray Tracing
-- Show Sphere Hitter: For debuging Sphere Tracing
+**Step 4. In `EPW Trace`**  
+- **Show Predict Pos**: display the next target position for each foot and the predicted joint-target location.  
+- **Show Line Ray**: toggle line-trace debugging.  
+- **Show Sphere Hitter**: toggle sphere-trace debugging.
+
+![SetBody](../assets/img/gifs/2_3_setbody.gif)
+
+### 2.2 AnimBP Preview
+
+Create a test animation asset that moves only the root bone.
+![SetBody](../assets/img/gifs/3_1_ABPMove.gif)
+
+Switch to **AnimBP Preview** mode and plug the animation into the **Easy Procedural Walker** node in the AnimGraph.
+![SetBody](../assets/img/gifs/3_2_ABPMove.gif)
+
+> In this step, create animations at different speeds and adjust **Step Length** and **Step Height** to suitable values.
+{: .prompt-tip }
+
+### 2.3 Game Play
+
+If you move the avatar in the game scene, reconnect the node to **Mesh Space Ref Pose** (or **Input Pose**) and set **Debug Mode** to **Game Play**.
+![blueprint](../assets/img/photos/EasyProceduralWalker_8.png)
+
+## 3. Other parameters
+
+1. In the `EPW Settings` tab  
+- `Move breath`: The body moves up and down in sync with each step.  
+- `Stand breath`: The body gently rises and falls while standing still.  
+- `Body Fit slope`: The body automatically tilts to match the slope angle as it moves.
+
+> Robots with two legs generally don’t need to enable `Body Fit slope`; the parameter is more suitable for multi-legged insects.
+{: .prompt-tip }
+
+![blueprint](../assets/img/photos/EasyProceduralWalker_9.png)
+
