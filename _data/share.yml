@@ -24,7 +24,7 @@ platforms:
 
   - type: WeChat
     icon: "fab fa-weixin"
-    url: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=URL"
+    link: "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=URL"
 
 
   # Uncomment below if you need to.
