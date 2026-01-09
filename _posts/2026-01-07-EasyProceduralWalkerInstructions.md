@@ -109,7 +109,7 @@ Mainly used for controlling the stand time.
 {: .prompt-danger }
 
 ## Examples
-In UE 5.7, first import the **Control Rig Samples Pack** into your project.  
+In UE 5.7, first import the [**Control Rig Samples Pack**](https://www.fab.com/listings/2ce3fe44-9ee6-4fa7-99fc-b9424a402386) into your project.  
 
 Next, unzip the provided archive into your **Content** folder; you will obtain two Animation Blueprints for `SKM_OnlyLeg` and `SKM_RobotScorpion`, along with sample animations.:https://1drv.ms/u/c/53c607b8bea23158/IQC8ji7fVj5-Qb8Rt45PIUrnAZSZsfDkAkWgUinfEjlJ1sk?e=wAusGU
 
