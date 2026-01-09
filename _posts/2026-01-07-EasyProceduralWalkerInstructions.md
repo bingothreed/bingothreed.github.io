@@ -117,3 +117,5 @@ Next, unzip the provided archive into your **Content** folder; you will obtain t
 {: .prompt-info }
 
 ![blueprint](../assets/img/photos/EasyProceduralWalker_11.png)
+
+Open one of the ABP_xxx blueprints and you will see the results in the Animation Blueprint preview window.
