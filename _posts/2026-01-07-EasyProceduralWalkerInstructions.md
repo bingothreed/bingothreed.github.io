@@ -121,5 +121,8 @@ Next, unzip the provided archive into your **Content** folder; you will obtain t
 Open one of the ABP_xxx blueprints and you will see the results in the Animation Blueprint preview window.
 
 ## Video tutorials
-English version: https://youtu.be/4kwHbrCxltc \
-Chinese version: https://www.bilibili.com/video/BV1QgqKB8E4n
+English version:\
+{% include embed/{youtube}.html id='{4kwHbrCxltc}' %}
+
+Chinese version:\
+{% include embed/{bilibili}.html id='{BV1QgqKB8E4n}' %}
