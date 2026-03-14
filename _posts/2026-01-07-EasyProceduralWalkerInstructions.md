@@ -1,6 +1,6 @@
 ---
 layout: post
-title: UE5 plugin
+title: UE5《Easy Procedural Walker》plugin instruction
 date: 2023-01-07 19:14:00 +8000
 categories: [Coding]
 tags: [UE5]
@@ -119,3 +119,10 @@ Next, unzip the provided archive into your **Content** folder; you will obtain t
 ![blueprint](../assets/img/photos/EasyProceduralWalker_11.png)
 
 Open one of the ABP_xxx blueprints and you will see the results in the Animation Blueprint preview window.
+
+## Video tutorials
+English version:
+{% include embed/youtube.html id='4kwHbrCxltc' %}
+
+Chinese version:
+{% include embed/bilibili.html id='BV1QgqKB8E4n' %}
