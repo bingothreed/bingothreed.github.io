@@ -1,13 +1,13 @@
 ---
 layout: post
-title: UE5《Parallax Mapping Material》 Plugin Guide
-date: 2026-04-29 01:31:00 +8000
+title: Parallax mapping plugin
+date: 2023-01-07 19:14:00 +8000
 categories: [Coding]
 tags: [UE5]
 comments: true
 math: true
 image:
-    path: ../assets/img/photos/ParallaxMapping.png
+    path: ../assets/img/photos/DNA2_Standalone.png
 ---
 
 ## 1. Introduction
