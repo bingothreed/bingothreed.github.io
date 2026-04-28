@@ -20,7 +20,7 @@ The final result in-engine:
 
 ## 2. Usage
 
-### 2.1 Background
+### 2.1 Background nodes
 #### 2.1.1 Nine-Grid Texture
 
 If you're using a 9-grid texture atlas like this:
@@ -37,7 +37,7 @@ Drop an **Interior Mapping UV** node into your material graph.
 | `UVs` | `TexCoordinates` | UV coordinates. Defaults to `TexCoord[0]`. |
 | `CameraVectorWs` | `Vector3` | Camera vector in world space. Use `CameraVectorWS` by default. |
 | `BoxDepth` | `Scalar` | Depth of the virtual room. |
-| `AspectRatio` | `Scalar` | $$\frac{Room_{Width}}{Room_{Height}}$$. Defaults to `1` (a cube-shaped room). |
+| `AspectRatio` | `Scalar` | $$\frac{Room_{Width}}{Room_{Height}}$$ Defaults to `1` (a cube-shaped room). |
 | `AtlasColumns` | `Scalar` | Number of grid columns in the atlas. Defaults to `3`. |
 | `AtlasRows` | `Scalar` | Number of grid rows in the atlas. Defaults to `3`. |
 | `BackRow` | `Scalar` | Which row contains the back wall. Top row = `BackRow - 1`, bottom row = `BackRow + 1`. |
@@ -59,7 +59,7 @@ If your textures are split into individual files:
 - CenterBottom:\
   ![CenterBottom](../assets/img/photos/RoomSet2/CenterBottom.png)
 
-Use the **Atlas Composer** node to merge them into a single atlas, then feed its output into the `Interior Mapping UV` node.
+Use the **Atlas Composer** node to merge them into a single atlas, then connect its `AtlasUV` with the output of the `Interior Mapping UV` node.
 
 ![Background Material With Atlas Composer](../assets/img/photos/BackGroundMat.png)
 
@@ -81,7 +81,7 @@ Use a **Billboard Layer UV** node to layer foreground elements with independent 
 | `AtlasRows` | `Scalar` | Grid rows. Defaults to `3`. Set to `1` when using individual textures. |
 | **Outputs** | | |
 | Pin 1 | `Vector2` | The parallax-shifted UVs for the foreground layer. |
-| Pin 2 | `Scalar` | `1.0` if the shifted UV stays within $$[0,1]^2$$; `0.0` if it falls outside the tile boundary. |
+| Pin 2 | `Scalar` | `1.0` if the shifted UV stays within $[0,1]^2$; `0.0` if it falls outside the tile boundary. |
 
 > Multiply the second output pin by your texture's alpha to get the correct opacity mask.
 {: .prompt-tip }
