@@ -7,7 +7,7 @@ tags: [UE5]
 comments: true
 math: true
 image:
-    path: ../assets/img/photos/DNA2_Standalone.png
+    path: ../assets/img/photos/ParallaxMapping.png
 ---
 
 ## 1. Introduction
