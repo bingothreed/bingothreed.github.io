@@ -7,7 +7,7 @@ tags: [UE5]
 comments: true
 math: true
 image:
-    path: ../assets/img/photos/ASRTitle.png
+    path: ../assets/img/photos/MicrophoneRecorderTile.png
 ---
 
 ## 1. Introduction
