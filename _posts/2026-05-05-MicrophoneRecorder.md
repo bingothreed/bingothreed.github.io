@@ -163,5 +163,18 @@ HasMicrophonePermission → RequestMicrophonePermission → [wait for OnMicropho
 
 ---
 
+## 6. Issues
+
+### 6.1 Permission 
+
+By defaule, the permission should be automatically integrated in the plugin. But if you still met the permission:
+1. If you want to pack it into iPhone, you can add this line to Project Settings-> IOS-> Extra Plist Data-> Additional  Plist Data:
+`<key>NSMicrophoneUsageDescription</key> <string>Record Audio</string>`
+![IOS Permission](../assets/img/photos/IOSPermission.png)
+2. If you want to pack it into Android, you can add this line to Project Settings-> Platform->Android-> Advanced APK Packing-> Extra Permissions:
+`android.permission.RECORD_AUDIO`
+![Android Permission](../assets/img/photos/AndroidPermission.png)
+
+
 **Plugin Version:** 1.0 | **Engine Version:** 5.7.0/5.6.0/5.5.0 | **Platforms:** Win64 / Linux / LinuxArm64 / Mac / iOS / Android
 
