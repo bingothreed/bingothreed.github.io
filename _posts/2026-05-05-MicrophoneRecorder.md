@@ -19,27 +19,32 @@ It has the following features:
 3. The main user scenarios are streaming playback and cloud ASR audio (audio chunks) input.
 4. Support Android/iOS/Win/Linux/Mac devices.
 
-Sample files:
+### 1.1 Sample files:
 
 - Copiable blueprint sample can be found here: https://blueprintue.com/blueprint/n2oy88a2/
 
 - Blueprint sample file can be found here: https://github.com/bingothreed/LocalASRService/blob/main/UEBPs/MicrophoneRecorder/MicrophoneRecorderBasicUsage.uasset
 
-Typical usage blueprint screenshots:
+### 1.2 Component preview
+1. Add `MicrophoneReocrder` component \
+![Add Component](../assets/img/photos/MPR_AddComponent.png)
 
-1. Grant permission
+2. Details pannel preview \
+![Details](../assets/img/photos/MPR_Details.png)
+
+
+### 1.3 Typical usage blueprint screenshots:
+
+1. Grant permission \
 ![Grant permission](../assets/img/photos/4_1_GrantPermission.png)
 
-2. Batch Recording
-
+2. Batch Recording \
 ![Batch Recording](../assets/img/photos/4_2_Batch.png)
 
-3. Streaming Recording with chunks
-
+3. Streaming Recording with chunks \
 ![Streaming chunks](../assets/img/photos/4_3_BasicStreaming.png)
 
-4. Streaming Recording with realtime playback
-
+4. Streaming Recording with realtime playback \
 ![Streaming playback](../assets/img/photos/4_3_StreamingPlayback.png)
 
 
