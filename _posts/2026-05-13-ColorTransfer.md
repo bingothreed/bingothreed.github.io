@@ -24,10 +24,21 @@ It has the following features:
 
 ### 1.1 Quick Start
 
+#### 1.1.1 Direct way
 1. Install the plugin and enable it in Plugins window
-2. Place a **ColorTransferActor** in the level (found in the Place Actors panel under Visual category)
+2. Place a **ColorTransferActor** in the level (found in the Place Actors panel under VFX category)
 3. Assign a **ReferenceImage** texture to the actor
 4. Check **Enable** to activate the effect
+
+![Settings](../assets/img/photos/ColorTransferSettings.png)
+
+#### 1.1.2 New BP inherent from ColorTransferActor
+
+![NewBP](../assets/img/photos/ColorTransferActor.png)
+
+![ColorTransferBP](../assets/img/photos/ColorTransferBP.png)
+
+
 
 ---
 
@@ -65,8 +76,9 @@ The reference image texture must meet these requirements:
 
 | Requirement | Value |
 |-------------|-------|
-| **Format** | BGRA8 |
-| **Compression** | None (uncheck "Compress" on import) |
+| **Format** | RGBA8 |
+| **Compression** | Uncompressed(RGBA8) |
+![TextureRequirement](../assets/img/photos/ColorTransfer_ImgCompression.png)
 
 If the format is incorrect, the plugin will log a warning:
 ```
