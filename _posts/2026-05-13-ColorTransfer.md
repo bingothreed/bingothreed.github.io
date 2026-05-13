@@ -117,4 +117,4 @@ On mobile (Android / iOS), the transfer pass is applied after Tonemap instead of
 
 ---
 
-**Plugin Version:** 1.0 | **Engine Version:** 5.7.0 | **Platforms:** Win64 / Linux / LinuxArm64 / Mac / iOS / Android
+**Plugin Version:** 1.0 | **Engine Version:** 5.7/5.6/5.5 | **Platforms:** Win64 / Linux / LinuxArm64 / Mac / iOS / Android
