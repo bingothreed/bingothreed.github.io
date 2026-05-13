@@ -7,7 +7,7 @@ tags: [UE5]
 comments: true
 math: true
 image:
-    path: ../assets/img/photos/ColorTransferTile.png
+    path: ../assets/img/photos/ColorTransfer_Title.jpg
 ---
 
 ## 1. Introduction
