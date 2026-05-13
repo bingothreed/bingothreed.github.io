@@ -78,6 +78,7 @@ The reference image texture must meet these requirements:
 |-------------|-------|
 | **Format** | RGBA8 |
 | **Compression** | Uncompressed(RGBA8) |
+
 ![TextureRequirement](../assets/img/photos/ColorTransfer_ImgCompression.png)
 
 If the format is incorrect, the plugin will log a warning:
