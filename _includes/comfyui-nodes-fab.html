@@ -1,0 +1,55 @@
+<a class="comfyui-nodes-fab" href="{{ '/comfyui-nodes/' | relative_url }}" aria-label="Open ComfyUI Nodes Reference">
+  <span class="comfyui-nodes-fab__icon" aria-hidden="true">⌘</span>
+  <span class="comfyui-nodes-fab__text">ComfyUI Nodes</span>
+</a>
+
+<style>
+  .comfyui-nodes-fab {
+    position: fixed;
+    left: 1.25rem;
+    bottom: 1.25rem;
+    z-index: 9999;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.65rem 0.9rem;
+    border-radius: 999px;
+    color: #fff !important;
+    background: linear-gradient(135deg, #4f46e5, #7c3aed);
+    box-shadow: 0 8px 24px rgba(79, 70, 229, 0.28), 0 2px 8px rgba(0, 0, 0, 0.18);
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+
+  .comfyui-nodes-fab:hover {
+    color: #fff !important;
+    text-decoration: none !important;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.34), 0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .comfyui-nodes-fab__icon {
+    display: grid;
+    width: 1.35rem;
+    height: 1.35rem;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.18);
+    font-size: 0.78rem;
+  }
+
+  @media (max-width: 576px) {
+    .comfyui-nodes-fab {
+      left: 0.9rem;
+      bottom: 0.9rem;
+      padding: 0.65rem;
+    }
+
+    .comfyui-nodes-fab__text {
+      display: none;
+    }
+  }
+</style>
