@@ -21,6 +21,10 @@
 - bilibili:
   icon: "fab fa-bilibili"
   url: "https://space.bilibili.com/20255333"
+- type: comfyui-nodes
+  icon: "fas fa-sitemap"
+  url: "/comfyui-nodes/"
+  noblank: true
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon
@@ -46,3 +50,4 @@
 # - type: threads
 #   icon: 'fa-brands fa-threads'
 #   url: ''                   # Fill with your Threads profile link
+
