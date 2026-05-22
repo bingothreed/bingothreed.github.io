@@ -143,14 +143,14 @@ pwa:
   cache:
     enabled: true # The option for PWA offline cache
     # Paths defined here will be excluded from the PWA cache.
-    # Usually its value is the `baseurl` of another website that
+        # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
-        deny_paths:
-      - "/comfyui-nodes"  # Avoid caching the standalone node reference and its large JSON data.
+    deny_paths:
+      - "/comfyui-nodes" # Avoid caching the standalone node reference and its large JSON data.
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
 
-
 paginate: 10
+
 
 # The base URL of your site
 baseurl: ""
