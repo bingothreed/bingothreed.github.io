@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>RunningHub ComfyUI Nodes Reference</title>
+<style>
+  :root {
+    --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    --r-sm: 6px;
+    --r-md: 10px;
+    --r-lg: 14px;
+    --shadow-1: 0 1px 2px rgba(0,0,0,0.04), 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-2: 0 4px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+    --easing: cubic-bezier(.4, 0, .2, 1);
+  }
+  :root[data-theme="light"] {
+    --bg: #fafafa;
+    --surface: #ffffff;
+    --surface-2: #f4f4f5;
+    --surface-hover: #f4f4f5;
+    --border: rgba(0,0,0,0.07);
+    --border-strong: rgba(0,0,0,0.12);
+    --text: #18181b;
+    --text-dim: #52525b;
+    --text-muted: #a1a1aa;
+    --accent: #4f46e5;
+    --accent-text: #ffffff;
+    --accent-soft: rgba(79,70,229,0.10);
+    --accent-soft-strong: rgba(79,70,229,0.18);
+    --pill-req-bg: rgba(220,38,38,0.10);
+    --pill-req-fg: #b91c1c;
+    --pill-opt-bg: rgba(59,130,246,0.10);
+    --pill-opt-fg: #1d4ed8;
+    --code-bg: #f4f4f5;
+    --scroll-thumb: rgba(0,0,0,0.18);
+  }
+  :root[data-theme="dark"] {
+    --bg: #0a0a0f;
+    --surface: #14141a;
+    --surface-2: #1c1c25;
+    --surface-hover: #20202b;
+    --border: rgba(255,255,255,0.06);
+    --border-strong: rgba(255,255,255,0.12);
+    --text: #e4e4e7;
+    --text-dim: #a1a1aa;
+    --text-muted: #71717a;
+    --accent: #818cf8;
+    --accent-text: #0a0a0f;
+    --accent-soft: rgba(129,140,248,0.12);
+    --accent-soft-strong: rgba(129,140,248,0.22);
+    --pill-req-bg: rgba(248,113,113,0.14);
+    --pill-req-fg: #fca5a5;
+    --pill-opt-bg: rgba(96,165,250,0.14);
+    --pill-opt-fg: #93c5fd;
+    --code-bg: #1c1c25;
+    --scroll-thumb: rgba(255,255,255,0.14);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; height: 100%; }
+  body {
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text);
+    background: var(--bg);
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background 0.2s var(--easing), color 0.2s var(--easing);
+  }
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--scroll-thumb); border-radius: 8px; border: 2px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-thumb:hover { background-color: var(--text-muted); background-clip: content-box; }
+
+  code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
+
+  /* ============ HEADER ============ */
+  header {
+    flex: 0 0 auto;
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 16px;
+    align-items: center;
+    position: sticky; top: 0; z-index: 10;
+    backdrop-filter: saturate(180%) blur(8px);
+  }
+  .brand { display: flex; align-items: center; gap: 12px; min-width: 0; }
+  .logo {
+    width: 32px; height: 32px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent), color-mix(in srgb, var(--accent) 60%, transparent));
+    color: var(--accent-text);
+    display: grid; place-items: center;
+    font-weight: 700; font-size: 14px;
+    box-shadow: var(--shadow-1);
+    flex-shrink: 0;
+  }
+  .brand-text { display: flex; flex-direction: column; line-height: 1.15; min-width: 0; }
+  .brand-text h1 { font-size: 14px; font-weight: 600; margin: 0; letter-spacing: -0.01em; }
+  .brand-text .stats { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+  .search-wrap {
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    justify-self: center;
+  }
+  .search-wrap svg.icon {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; color: var(--text-muted);
+    pointer-events: none;
+  }
+  .search-wrap input {
+    width: 100%;
+    height: 36px;
+    padding: 0 56px 0 38px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    color: var(--text);
+    font: inherit;
+    transition: all 0.15s var(--easing);
+  }
+  .search-wrap input::placeholder { color: var(--text-muted); }
+  .search-wrap input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+    background: var(--surface);
+  }
+  .search-wrap kbd {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1px 6px;
+    pointer-events: none;
+  }
+
+  .actions { display: flex; align-items: center; gap: 8px; }
+  .seg {
+    display: inline-flex;
+    background: var(--surface-2);
+    border-radius: var(--r-md);
+    padding: 3px;
+    border: 1px solid var(--border);
+  }
+  .seg button {
+    border: none; background: transparent;
+    color: var(--text-dim);
+    font: 500 12px/1 var(--font-sans);
+    padding: 6px 12px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.12s var(--easing);
+  }
+  .seg button:hover { color: var(--text); }
+  .seg button.active {
+    background: var(--surface);
+    color: var(--text);
+    box-shadow: var(--shadow-1);
+  }
+
+  select.group-select {
+    height: 32px;
+    padding: 0 28px 0 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--surface-2)
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M3 5l3 3 3-3' stroke='%23999' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E")
+      right 8px center / 12px no-repeat;
+    color: var(--text);
+    font: inherit; font-size: 13px;
+    appearance: none;
+    cursor: pointer;
+    max-width: 200px;
+    transition: border 0.12s var(--easing);
+  }
+  select.group-select:hover { border-color: var(--border-strong); }
+  select.group-select:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+  /* ============ COMBOBOX (searchable) ============ */
+  .combo { position: relative; }
+  .combo-trigger {
+    height: 32px;
+    padding: 0 32px 0 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    background: var(--surface-2);
+    color: var(--text);
+    font: inherit; font-size: 13px;
+    cursor: pointer;
+    display: inline-flex; align-items: center;
+    min-width: 160px; max-width: 220px;
+    position: relative;
+    transition: border 0.12s var(--easing);
+  }
+  .combo-trigger:hover { border-color: var(--border-strong); }
+  .combo[data-open="true"] .combo-trigger {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .combo-value {
+    flex: 1;
+    text-align: left;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .combo-chevron {
+    position: absolute; right: 10px; top: 50%;
+    width: 12px; height: 12px;
+    color: var(--text-muted);
+    transform: translateY(-50%);
+    transition: transform 0.15s var(--easing);
+  }
+  .combo[data-open="true"] .combo-chevron {
+    transform: translateY(-50%) rotate(180deg);
+    color: var(--accent);
+  }
+  .combo-pop {
+    position: absolute;
+    top: calc(100% + 6px); right: 0;
+    width: 320px; max-width: calc(100vw - 24px);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    box-shadow: var(--shadow-2);
+    z-index: 50;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .combo-pop[hidden] { display: none; }
+  .combo-search-wrap {
+    position: relative;
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .combo-search-wrap svg.icon {
+    position: absolute; left: 18px; top: 50%; transform: translateY(-50%);
+    width: 14px; height: 14px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  .combo-search-wrap input {
+    width: 100%;
+    height: 30px;
+    padding: 0 10px 0 32px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    background: var(--surface-2);
+    color: var(--text);
+    font: inherit; font-size: 13px;
+  }
+  .combo-search-wrap input::placeholder { color: var(--text-muted); }
+  .combo-search-wrap input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-soft);
+    background: var(--surface);
+  }
+  .combo-list {
+    flex: 1 1 auto;
+    max-height: 320px;
+    overflow-y: auto;
+    padding: 4px;
+  }
+  .combo-option {
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    padding: 7px 10px;
+    border-radius: var(--r-sm);
+    cursor: pointer;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--text);
+    font: inherit; font-size: 13px;
+  }
+  .combo-option:hover, .combo-option.active {
+    background: var(--surface-hover);
+  }
+  .combo-option.selected {
+    background: var(--accent-soft);
+    color: var(--accent);
+    font-weight: 500;
+  }
+  .combo-option .label {
+    flex: 1;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+  .combo-option .count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .combo-option.selected .count { color: var(--accent); }
+  .combo-option .check {
+    width: 12px; height: 12px;
+    color: var(--accent);
+    flex-shrink: 0;
+    visibility: hidden;
+  }
+  .combo-option.selected .check { visibility: visible; }
+  .combo-empty {
+    padding: 16px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 12px;
+  }
+
+  .icon-btn {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    border-radius: var(--r-md);
+    color: var(--text-dim);
+    display: grid; place-items: center;
+    cursor: pointer;
+    transition: all 0.15s var(--easing);
+  }
+  .icon-btn:hover { background: var(--surface-hover); color: var(--text); border-color: var(--border-strong); }
+  .icon-btn svg { width: 16px; height: 16px; }
+
+  /* ============ MAIN ============ */
+  main { flex: 1 1 auto; min-height: 0; display: flex; }
+
+  aside {
+    flex: 0 0 320px;
+    background: var(--surface);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    position: relative;
+  }
+  #list { position: relative; padding: 6px; }
+  .row {
+    height: 56px;
+    padding: 8px 12px;
+    border-radius: var(--r-md);
+    cursor: pointer;
+    display: flex; flex-direction: column; justify-content: center;
+    overflow: hidden;
+    transition: background 0.1s var(--easing);
+  }
+  .row:hover { background: var(--surface-hover); }
+  .row.selected {
+    background: var(--accent-soft);
+    box-shadow: inset 2px 0 0 0 var(--accent);
+  }
+  .row .name {
+    font-weight: 500;
+    font-size: 13px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .row.selected .name { color: var(--accent); }
+  .row .meta {
+    font-size: 11px; color: var(--text-muted); margin-top: 2px;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-family: var(--font-mono);
+  }
+
+  /* ============ DETAIL ============ */
+  section.detail {
+    flex: 1 1 auto; min-width: 0;
+    overflow-y: auto;
+    padding: 32px 40px 80px;
+  }
+  .empty {
+    height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    color: var(--text-muted);
+    gap: 16px;
+  }
+  .empty-art {
+    width: 64px; height: 64px;
+    border-radius: 16px;
+    background: var(--surface-2);
+    display: grid; place-items: center;
+    color: var(--text-muted);
+  }
+  .empty-art svg { width: 32px; height: 32px; }
+
+  .detail .title-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: 12px; margin-bottom: 6px; }
+  .detail h2 {
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+    word-break: break-word;
+    letter-spacing: -0.01em;
+  }
+  .display-name { color: var(--text-muted); font-size: 13px; }
+  .badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 0 16px; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 3px 10px; border-radius: 999px;
+    font-size: 11px; font-weight: 500;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+  }
+  .badge::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: currentColor; opacity: 0.7;
+  }
+  .badge.cat { color: #16a34a; }
+  .badge.pack { color: #d97706; }
+  :root[data-theme="dark"] .badge.cat { color: #4ade80; }
+  :root[data-theme="dark"] .badge.pack { color: #fbbf24; }
+  .badge.feature { color: var(--accent); }
+  .badge.jump {
+    cursor: pointer;
+    transition: background 0.12s var(--easing), border-color 0.12s var(--easing), transform 0.12s var(--easing);
+  }
+  .badge.jump:hover {
+    background: var(--surface-hover);
+    border-color: var(--border-strong);
+    transform: translateY(-1px);
+  }
+  .badge.jump::after {
+    content: "↗";
+    margin-left: 2px;
+    opacity: 0.6;
+    font-size: 10px;
+  }
+  .badge.jump:hover::after { opacity: 1; }
+  .description {
+    color: var(--text-dim);
+    font-size: 14px;
+    margin: 12px 0 28px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    border-radius: var(--r-md);
+    white-space: pre-wrap;
+  }
+
+  h3.section {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin: 28px 0 12px;
+  }
+  h3.section .count {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    background: var(--surface-2);
+    padding: 1px 8px;
+    border-radius: 999px;
+    font-size: 11px;
+    letter-spacing: 0;
+  }
+  h3.section::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .param-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 12px;
+  }
+  .param-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 14px 16px;
+    transition: border 0.12s var(--easing), transform 0.12s var(--easing);
+  }
+  .param-card:hover { border-color: var(--border-strong); }
+  .param-head {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 8px;
+    margin-bottom: 8px;
+  }
+  .param-name {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .type-pill {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+  .type-pill.enum { background: var(--accent-soft); color: var(--accent); border-color: transparent; }
+  .req-pill {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 7px;
+    border-radius: 4px;
+  }
+  .req-pill.req { background: var(--pill-req-bg); color: var(--pill-req-fg); }
+  .req-pill.opt { background: var(--pill-opt-bg); color: var(--pill-opt-fg); }
+  .param-tooltip {
+    color: var(--text-dim);
+    font-size: 13px;
+    margin: 4px 0 10px;
+    line-height: 1.5;
+  }
+  .param-meta {
+    display: flex; flex-wrap: wrap; gap: 12px 18px;
+    font-size: 12px;
+  }
+  .param-meta dt {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0 0 2px;
+    font-weight: 500;
+  }
+  .param-meta dd {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text);
+    word-break: break-all;
+  }
+  .param-meta dd code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+  .enum-list {
+    margin-top: 4px;
+    max-height: 120px;
+    overflow-y: auto;
+    background: var(--code-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--r-sm);
+    padding: 8px 10px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+  .enum-list .more { color: var(--text-muted); font-style: italic; margin-top: 4px; }
+
+  .out-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+  .out-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 12px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .out-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .out-name { font-family: var(--font-mono); font-weight: 600; font-size: 13px; }
+  .out-tip { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+
+  .nothing { color: var(--text-muted); font-size: 13px; font-style: italic; padding: 4px 0; }
+
+  /* ============ STATUS / ERR ============ */
+  #status {
+    padding: 24px 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+    text-align: center;
+  }
+  #status .spinner {
+    width: 24px; height: 24px;
+    margin: 0 auto 12px;
+    border: 2px solid var(--border);
+    border-top-color: var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  #status .progress { font-family: var(--font-mono); font-size: 11px; margin-top: 4px; }
+  #status.error {
+    text-align: left;
+    color: var(--text);
+    background: var(--surface);
+    margin: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--r-md);
+    padding: 16px;
+  }
+  #status.error code {
+    background: var(--code-bg);
+    padding: 1px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+  }
+
+  /* ============ RESPONSIVE ============ */
+  @media (max-width: 980px) {
+    header { grid-template-columns: 1fr auto; gap: 8px 12px; }
+    .search-wrap { grid-column: 1 / -1; max-width: none; justify-self: stretch; order: 3; }
+    .actions { flex-wrap: wrap; }
+    select.group-select { max-width: 140px; }
+  }
+  @media (max-width: 720px) {
+    aside { flex-basis: 240px; }
+    section.detail { padding: 20px 16px 60px; }
+    .detail h2 { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">RH</div>
+    <div class="brand-text">
+      <h1>RunningHub Nodes</h1>
+      <span class="stats" id="stats">loading…</span>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Search nodes, pack, category… (try pack:KJNodes)" autocomplete="off" spellcheck="false">
+    <kbd>/</kbd>
+  </div>
+
+  <div class="actions">
+    <div class="combo" id="pack-combo" data-open="false">
+      <button class="combo-trigger" id="pack-combo-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" title="Filter by pack">
+        <span class="combo-value" id="pack-combo-value">All packs</span>
+        <svg class="combo-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 5l3 3 3-3"/></svg>
+      </button>
+      <div class="combo-pop" id="pack-combo-pop" hidden>
+        <div class="combo-search-wrap">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="pack-combo-search" type="search" placeholder="Search packs…" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="combo-list" id="pack-combo-list" role="listbox"></div>
+      </div>
+    </div>
+    <div class="combo" id="cat-combo" data-open="false">
+      <button class="combo-trigger" id="cat-combo-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" title="Filter by category">
+        <span class="combo-value" id="cat-combo-value">All categories</span>
+        <svg class="combo-chevron" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 5l3 3 3-3"/></svg>
+      </button>
+      <div class="combo-pop" id="cat-combo-pop" hidden>
+        <div class="combo-search-wrap">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <input id="cat-combo-search" type="search" placeholder="Search categories…" autocomplete="off" spellcheck="false">
+        </div>
+        <div class="combo-list" id="cat-combo-list" role="listbox"></div>
+      </div>
+    </div>
+    <button class="icon-btn" id="theme-toggle" aria-label="toggle theme" title="Toggle theme">
+      <svg id="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <svg id="theme-moon" style="display:none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+  <aside id="aside">
+    <div id="status">
+      <div class="spinner"></div>
+      <div>Loading nodes data…</div>
+      <div class="progress" id="progress"></div>
+    </div>
+    <div id="list" hidden></div>
+  </aside>
+  <section class="detail" id="detail">
+    <div class="empty">
+      <div class="empty-art">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+      </div>
+      <p>Select a node from the list</p>
+    </div>
+  </section>
+</main>
+
+<script>
+"use strict";
+
+const ROW_HEIGHT = 56;
+const VISIBLE_PAD = 4;
+const THEME_KEY = "rh-nodes-theme";
+
+const state = {
+  data: null,
+  all: [],
+  byPack: new Map(),
+  byCat: new Map(),
+  pack: "",
+  group: "",
+  query: "",
+  filtered: [],
+  selected: null,
+};
+
+const els = {
+  stats: document.getElementById("stats"),
+  q: document.getElementById("q"),
+  aside: document.getElementById("aside"),
+  list: document.getElementById("list"),
+  detail: document.getElementById("detail"),
+  status: document.getElementById("status"),
+  progress: document.getElementById("progress"),
+  themeToggle: document.getElementById("theme-toggle"),
+  themeSun: document.getElementById("theme-sun"),
+  themeMoon: document.getElementById("theme-moon"),
+};
+
+/* ===== THEME ===== */
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  els.themeSun.style.display = theme === "dark" ? "" : "none";
+  els.themeMoon.style.display = theme === "dark" ? "none" : "";
+}
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  const sys = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  applyTheme(saved || sys);
+}
+els.themeToggle.addEventListener("click", () => {
+  const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  localStorage.setItem(THEME_KEY, next);
+  applyTheme(next);
+});
+initTheme();
+
+/* ===== DATA LOADING ===== */
+async function loadData() {
+  try {
+    const resp = await fetch("./data/nodes.json");
+    if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+    const total = +resp.headers.get("Content-Length") || 0;
+    if (total && resp.body) {
+      const reader = resp.body.getReader();
+      const chunks = [];
+      let received = 0;
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        received += value.length;
+        els.progress.textContent = `${(received / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`;
+      }
+      const blob = new Blob(chunks);
+      return JSON.parse(await blob.text());
+    }
+    return await resp.json();
+  } catch (e) {
+    els.status.classList.add("error");
+    els.status.innerHTML = `<strong>Failed to load <code>data/nodes.json</code></strong><br><br>${escapeHtml(e.message)}<br><br>请将 <code>runninghub_COMPLETE_PARAMS_*_nodes.json</code> 复制到 <code>comfyui-nodes/data/nodes.json</code> 后刷新。`;
+    throw e;
+  }
+}
+
+function topCategory(cat) { return (cat || "").split("/")[0] || "uncategorized"; }
+
+function buildIndex(raw) {
+  const dict = (raw && raw.nodes_info) ? raw.nodes_info : raw;
+  const all = [];
+  for (const name in dict) {
+    const node = dict[name];
+    const pack = node.python_module || "unknown";
+    const cat = node.category || "uncategorized";
+    all.push({ name, node, pack, cat });
+    if (!state.byPack.has(pack)) state.byPack.set(pack, []);
+    state.byPack.get(pack).push(name);
+    if (!state.byCat.has(cat)) state.byCat.set(cat, []);
+    state.byCat.get(cat).push(name);
+  }
+  state.all = all;
+  state.data = dict;
+}
+
+/* ===== FILTER / RENDER LIST ===== */
+function createFilterCombo(prefix, stateKey, allLabel) {
+  const combo = {
+    el: document.getElementById(`${prefix}-combo`),
+    trigger: document.getElementById(`${prefix}-combo-trigger`),
+    valueEl: document.getElementById(`${prefix}-combo-value`),
+    pop: document.getElementById(`${prefix}-combo-pop`),
+    searchEl: document.getElementById(`${prefix}-combo-search`),
+    list: document.getElementById(`${prefix}-combo-list`),
+    items: [],
+    searchQuery: "",
+    activeIdx: 0,
+    open: false,
+    stateKey,
+    allLabel,
+  };
+
+  combo.updateTrigger = () => {
+    combo.valueEl.textContent = state[stateKey] || allLabel;
+  };
+
+  combo.filteredItems = () => {
+    const q = combo.searchQuery.trim().toLowerCase();
+    if (!q) return combo.items;
+    return combo.items.filter(it => it.label.toLowerCase().includes(q));
+  };
+
+  combo.render = () => {
+    const items = combo.filteredItems();
+    if (items.length === 0) {
+      combo.list.innerHTML = `<div class="combo-empty">No matches.</div>`;
+      return;
+    }
+    if (combo.activeIdx >= items.length) combo.activeIdx = items.length - 1;
+    if (combo.activeIdx < 0) combo.activeIdx = 0;
+    let html = "";
+    for (let i = 0; i < items.length; i++) {
+      const it = items[i];
+      const isSel = it.value === state[stateKey];
+      const isAct = i === combo.activeIdx;
+      html += `<button class="combo-option${isSel ? " selected" : ""}${isAct ? " active" : ""}" type="button" data-value="${escapeAttr(it.value)}" data-idx="${i}" role="option" aria-selected="${isSel}">
+        <svg class="check" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 6.5l2.5 2.5 4.5-5"/></svg>
+        <span class="label">${escapeHtml(it.label)}</span>
+        <span class="count">${it.count.toLocaleString()}</span>
+      </button>`;
+    }
+    combo.list.innerHTML = html;
+    const actEl = combo.list.querySelector(".combo-option.active");
+    if (actEl) actEl.scrollIntoView({ block: "nearest" });
+  };
+
+  combo.openList = () => {
+    if (combo.open) return;
+    closeAllCombos(combo);
+    combo.open = true;
+    combo.pop.hidden = false;
+    combo.el.dataset.open = "true";
+    combo.trigger.setAttribute("aria-expanded", "true");
+    combo.searchQuery = "";
+    combo.searchEl.value = "";
+    combo.activeIdx = combo.items.findIndex(x => x.value === state[stateKey]);
+    if (combo.activeIdx < 0) combo.activeIdx = 0;
+    combo.render();
+    setTimeout(() => {
+      combo.searchEl.focus();
+      const selEl = combo.list.querySelector(".combo-option.selected");
+      if (selEl) selEl.scrollIntoView({ block: "nearest" });
+    }, 0);
+  };
+
+  combo.closeList = () => {
+    if (!combo.open) return;
+    combo.open = false;
+    combo.pop.hidden = true;
+    combo.el.dataset.open = "false";
+    combo.trigger.setAttribute("aria-expanded", "false");
+  };
+
+  combo.pick = (value) => {
+    state[stateKey] = value;
+    combo.updateTrigger();
+    combo.closeList();
+    applyFilters();
+  };
+
+  combo.trigger.addEventListener("click", () => {
+    if (combo.open) combo.closeList();
+    else combo.openList();
+  });
+  combo.searchEl.addEventListener("input", () => {
+    combo.searchQuery = combo.searchEl.value;
+    combo.activeIdx = 0;
+    combo.render();
+    combo.list.scrollTop = 0;
+  });
+  combo.searchEl.addEventListener("keydown", (e) => {
+    const items = combo.filteredItems();
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      combo.activeIdx = Math.min(items.length - 1, combo.activeIdx + 1);
+      combo.render();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      combo.activeIdx = Math.max(0, combo.activeIdx - 1);
+      combo.render();
+    } else if (e.key === "Enter" && items[combo.activeIdx]) {
+      e.preventDefault();
+      combo.pick(items[combo.activeIdx].value);
+    }
+  });
+  combo.list.addEventListener("click", (e) => {
+    const opt = e.target.closest(".combo-option");
+    if (opt) combo.pick(opt.dataset.value);
+  });
+  combo.list.addEventListener("mousemove", (e) => {
+    const opt = e.target.closest(".combo-option");
+    if (!opt) return;
+    const idx = +opt.dataset.idx;
+    if (idx === combo.activeIdx) return;
+    combo.activeIdx = idx;
+    combo.list.querySelectorAll(".combo-option.active").forEach(el => el.classList.remove("active"));
+    opt.classList.add("active");
+  });
+
+  return combo;
+}
+
+const packCombo = createFilterCombo("pack", "pack", "All packs");
+const catCombo = createFilterCombo("cat", "group", "All categories");
+const filterCombos = [packCombo, catCombo];
+
+function closeAllCombos(except) {
+  for (const combo of filterCombos) {
+    if (combo !== except) combo.closeList();
+  }
+}
+
+document.addEventListener("click", (e) => {
+  for (const combo of filterCombos) {
+    if (combo.open && !combo.el.contains(e.target)) combo.closeList();
+  }
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    for (const combo of filterCombos) {
+      if (combo.open) {
+        combo.closeList();
+        combo.trigger.focus();
+      }
+    }
+  }
+});
+
+function mapEntriesToItems(map) {
+  return [...map.entries()]
+    .sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]))
+    .map(([k, v]) => ({ value: k, label: k, count: v.length }));
+}
+
+function populateFilterCombos() {
+  packCombo.items = [
+    { value: "", label: "All packs", count: state.all.length },
+    ...mapEntriesToItems(state.byPack),
+  ];
+  catCombo.items = [
+    { value: "", label: "All categories", count: state.all.length },
+    ...mapEntriesToItems(state.byCat),
+  ];
+  for (const combo of filterCombos) {
+    combo.updateTrigger();
+    if (combo.open) combo.render();
+  }
+}
+
+function applyFilters() {
+  let pool = state.all;
+  if (state.pack) {
+    const names = new Set(state.byPack.get(state.pack) || []);
+    pool = pool.filter(x => names.has(x.name));
+  }
+  if (state.group) {
+    const names = new Set(state.byCat.get(state.group) || []);
+    pool = pool.filter(x => names.has(x.name));
+  }
+  const q = state.query.trim().toLowerCase();
+  if (q) {
+    let field = null, needle = q;
+    if (q.startsWith("pack:")) { field = "pack"; needle = q.slice(5).trim(); }
+    else if (q.startsWith("cat:")) { field = "cat"; needle = q.slice(4).trim(); }
+    else if (q.startsWith("category:")) { field = "cat"; needle = q.slice(9).trim(); }
+    if (needle) {
+      pool = pool.filter(x => {
+        if (field === "pack") return x.pack.toLowerCase().includes(needle);
+        if (field === "cat") return (x.node.category || "").toLowerCase().includes(needle);
+        if (x.name.toLowerCase().includes(needle)) return true;
+        if (x.pack.toLowerCase().includes(needle)) return true;
+        if ((x.node.category || "").toLowerCase().includes(needle)) return true;
+        const dn = x.node.display_name;
+        if (dn && dn.toLowerCase().includes(needle)) return true;
+        const desc = x.node.description;
+        if (desc && desc.toLowerCase().includes(needle)) return true;
+        return false;
+      });
+    }
+  }
+  pool.sort((a, b) => a.name.localeCompare(b.name));
+  state.filtered = pool;
+  renderList();
+  els.stats.textContent = pool.length === state.all.length
+    ? `${pool.length.toLocaleString()} nodes`
+    : `${pool.length.toLocaleString()} / ${state.all.length.toLocaleString()} nodes`;
+}
+
+let listSpacer, listInner, listInited = false;
+function renderList() {
+  if (!listInited) {
+    els.list.hidden = false;
+    els.status.style.display = "none";
+    listSpacer = document.createElement("div");
+    listSpacer.style.position = "relative";
+    listInner = document.createElement("div");
+    Object.assign(listInner.style, { position: "absolute", top: "0", left: "0", right: "0" });
+    listSpacer.appendChild(listInner);
+    els.list.appendChild(listSpacer);
+    els.aside.addEventListener("scroll", drawWindow, { passive: true });
+    window.addEventListener("resize", drawWindow);
+    listInited = true;
+  }
+  listSpacer.style.height = (state.filtered.length * ROW_HEIGHT) + "px";
+  drawWindow();
+}
+
+function drawWindow() {
+  if (!listInner) return;
+  const n = state.filtered.length;
+  if (n === 0) {
+    listInner.style.transform = `translateY(0)`;
+    listInner.innerHTML = `<div class="nothing" style="padding:14px;text-align:center">No matches.</div>`;
+    return;
+  }
+  const top = els.aside.scrollTop;
+  const h = els.aside.clientHeight;
+  const start = Math.max(0, Math.floor(top / ROW_HEIGHT) - VISIBLE_PAD);
+  const end = Math.min(n, Math.ceil((top + h) / ROW_HEIGHT) + VISIBLE_PAD);
+  listInner.style.transform = `translateY(${start * ROW_HEIGHT}px)`;
+  let html = "";
+  for (let i = start; i < end; i++) {
+    const it = state.filtered[i];
+    const sel = state.selected === it.name ? " selected" : "";
+    const meta = it.node.category || "uncategorized";
+    html += `<div class="row${sel}" data-name="${escapeAttr(it.name)}" style="height:${ROW_HEIGHT}px">
+      <div class="name">${escapeHtml(it.name)}</div>
+      <div class="meta">${escapeHtml(meta)}</div>
+    </div>`;
+  }
+  listInner.innerHTML = html;
+}
+
+els.list.addEventListener("click", (e) => {
+  const row = e.target.closest(".row");
+  if (row) selectNode(row.dataset.name, true);
+});
+
+els.detail.addEventListener("click", (e) => {
+  const jumpEl = e.target.closest(".badge.jump");
+  if (jumpEl) jumpToGroup(jumpEl.dataset.jump, jumpEl.dataset.value);
+});
+
+function jumpToGroup(mode, value) {
+  if (mode === "pack") {
+    state.pack = value;
+    state.group = "";
+    state.query = "";
+    els.q.value = "";
+    populateFilterCombos();
+    applyFilters();
+  } else {
+    state.pack = "";
+    state.group = value;
+    state.query = "";
+    els.q.value = "";
+    populateFilterCombos();
+    applyFilters();
+  }
+  const idx = state.filtered.findIndex(x => x.name === state.selected);
+  if (idx >= 0) {
+    els.aside.scrollTo({ top: idx * ROW_HEIGHT - els.aside.clientHeight / 2, behavior: "smooth" });
+  } else {
+    els.aside.scrollTop = 0;
+  }
+}
+
+/* ===== DETAIL ===== */
+function selectNode(name, updateHash) {
+  state.selected = name;
+  drawWindow();
+  const node = state.data[name];
+  if (!node) {
+    els.detail.innerHTML = `<div class="empty"><p>Node "${escapeHtml(name)}" not found.</p></div>`;
+    return;
+  }
+  renderDetail(name, node);
+  if (updateHash) {
+    const h = "#" + encodeURIComponent(name);
+    if (location.hash !== h) history.replaceState(null, "", h);
+  }
+  const idx = state.filtered.findIndex(x => x.name === name);
+  if (idx >= 0) {
+    const targetTop = idx * ROW_HEIGHT;
+    const top = els.aside.scrollTop;
+    const h = els.aside.clientHeight;
+    if (targetTop < top || targetTop + ROW_HEIGHT > top + h) {
+      els.aside.scrollTo({ top: targetTop - h / 2, behavior: "smooth" });
+    }
+  }
+}
+
+function renderDetail(name, node) {
+  const inputs = node.input || {};
+  const required = inputs.required || {};
+  const optional = inputs.optional || {};
+  const ord = node.input_order || {};
+  const reqOrder = Array.isArray(ord.required) ? ord.required : Object.keys(required);
+  const optOrder = Array.isArray(ord.optional) ? ord.optional : Object.keys(optional);
+
+  const allInputs = [
+    ...reqOrder.filter(k => k in required).map(k => ({ k, v: required[k], req: true })),
+    ...optOrder.filter(k => k in optional).map(k => ({ k, v: optional[k], req: false })),
+  ];
+
+  const inputCards = allInputs.map(({ k, v, req }) => {
+    const tdef = Array.isArray(v) ? v[0] : v;
+    const opts = (Array.isArray(v) && v.length > 1 && typeof v[1] === "object") ? v[1] : {};
+    const isEnum = Array.isArray(tdef);
+    const typeLabel = isEnum ? `enum · ${tdef.length}` : String(tdef);
+
+    let metaItems = "";
+    if ("default" in opts) {
+      metaItems += `<div><dt>default</dt><dd><code>${escapeHtml(JSON.stringify(opts.default))}</code></dd></div>`;
+    }
+    if (!isEnum) {
+      const range = [];
+      if ("min" in opts) range.push(`min ${opts.min}`);
+      if ("max" in opts) range.push(`max ${opts.max}`);
+      if ("step" in opts) range.push(`step ${opts.step}`);
+      if (range.length) {
+        metaItems += `<div><dt>range</dt><dd>${escapeHtml(range.join(" · "))}</dd></div>`;
+      }
+    }
+
+    let enumBox = "";
+    if (isEnum && tdef.length) {
+      const head = tdef.slice(0, 60).map(x => escapeHtml(String(x))).join("<br>");
+      const more = tdef.length > 60 ? `<div class="more">+ ${tdef.length - 60} more options</div>` : "";
+      enumBox = `<div class="enum-list">${head}${more}</div>`;
+    }
+
+    return `<div class="param-card">
+      <div class="param-head">
+        <span class="param-name">${escapeHtml(k)}</span>
+        <span class="type-pill ${isEnum ? "enum" : ""}">${escapeHtml(typeLabel)}</span>
+        <span class="req-pill ${req ? "req" : "opt"}">${req ? "required" : "optional"}</span>
+      </div>
+      ${opts.tooltip ? `<div class="param-tooltip">${escapeHtml(opts.tooltip)}</div>` : ""}
+      ${metaItems ? `<dl class="param-meta">${metaItems}</dl>` : ""}
+      ${enumBox}
+    </div>`;
+  }).join("");
+
+  const outputs = node.output || [];
+  const outNames = node.output_name || [];
+  const outIsList = node.output_is_list || [];
+  const outTips = node.output_tooltips || [];
+  const outputCards = outputs.map((t, i) => `
+    <div class="out-card">
+      <div class="out-head">
+        <span class="out-name">${escapeHtml(outNames[i] || String(i))}</span>
+        <span class="type-pill">${escapeHtml(String(t))}</span>
+        ${outIsList[i] ? '<span class="req-pill opt">list</span>' : ""}
+      </div>
+      ${outTips[i] ? `<div class="out-tip">${escapeHtml(outTips[i])}</div>` : ""}
+    </div>`).join("");
+
+  els.detail.innerHTML = `
+    <div class="title-row">
+      <h2>${escapeHtml(name)}</h2>
+      ${node.display_name && node.display_name !== name ? `<span class="display-name">${escapeHtml(node.display_name)}</span>` : ""}
+    </div>
+    <div class="badges">
+      ${node.python_module ? `<span class="badge pack jump" data-jump="pack" data-value="${escapeAttr(node.python_module)}" title="Show all nodes in this pack">pack · ${escapeHtml(node.python_module)}</span>` : ""}
+      ${node.category ? `<span class="badge cat jump" data-jump="category" data-value="${escapeAttr(node.category)}" title="Show all nodes in this category">cat · ${escapeHtml(node.category)}</span>` : ""}
+      ${node.output_node ? `<span class="badge feature">output node</span>` : ""}
+    </div>
+    ${node.description ? `<div class="description">${escapeHtml(node.description)}</div>` : ""}
+
+    <h3 class="section">Inputs <span class="count">${allInputs.length}</span></h3>
+    ${allInputs.length ? `<div class="param-grid">${inputCards}</div>` : `<div class="nothing">No inputs.</div>`}
+
+    <h3 class="section">Outputs <span class="count">${outputs.length}</span></h3>
+    ${outputs.length ? `<div class="out-grid">${outputCards}</div>` : `<div class="nothing">No outputs.</div>`}
+  `;
+  els.detail.scrollTop = 0;
+}
+
+/* ===== UTILS ===== */
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+function escapeAttr(s) { return escapeHtml(s); }
+
+/* ===== EVENTS ===== */
+els.q.addEventListener("input", () => { state.query = els.q.value; applyFilters(); });
+
+document.addEventListener("keydown", (e) => {
+  const ae = document.activeElement;
+  const inField = ae && (ae.tagName === "INPUT" || ae.tagName === "TEXTAREA" || ae.isContentEditable);
+  if (e.key === "/" && !inField && !e.ctrlKey && !e.metaKey) {
+    e.preventDefault();
+    els.q.focus();
+    els.q.select();
+  } else if (e.key === "Escape" && ae === els.q) {
+    els.q.blur();
+  }
+});
+
+window.addEventListener("hashchange", () => {
+  const name = decodeURIComponent(location.hash.replace(/^#/, ""));
+  if (name && name !== state.selected) selectNode(name, false);
+});
+
+/* ===== BOOT ===== */
+(async function main() {
+  let raw;
+  try { raw = await loadData(); } catch { return; }
+  buildIndex(raw);
+  populateFilterCombos();
+  applyFilters();
+  const initial = decodeURIComponent(location.hash.replace(/^#/, ""));
+  if (initial && state.data[initial]) selectNode(initial, false);
+})();
+</script>
+</body>
+</html>
