@@ -428,7 +428,7 @@
     transform: translateY(-1px);
   }
   .badge.jump::after {
-    content: "↗";
+    content: "\2197";
     margin-left: 2px;
     opacity: 0.6;
     font-size: 10px;
@@ -632,13 +632,13 @@
     <div class="logo">RH</div>
     <div class="brand-text">
       <h1>RunningHub Nodes</h1>
-      <span class="stats" id="stats">loading…</span>
+      <span class="stats" id="stats">loading...</span>
     </div>
   </div>
 
   <div class="search-wrap">
     <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-    <input id="q" type="search" placeholder="Search nodes, pack, category… (try pack:KJNodes)" autocomplete="off" spellcheck="false">
+    <input id="q" type="search" placeholder="Search nodes, pack, category... (try pack:KJNodes)" autocomplete="off" spellcheck="false">
     <kbd>/</kbd>
   </div>
 
@@ -651,7 +651,7 @@
       <div class="combo-pop" id="pack-combo-pop" hidden>
         <div class="combo-search-wrap">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input id="pack-combo-search" type="search" placeholder="Search packs…" autocomplete="off" spellcheck="false">
+          <input id="pack-combo-search" type="search" placeholder="Search packs..." autocomplete="off" spellcheck="false">
         </div>
         <div class="combo-list" id="pack-combo-list" role="listbox"></div>
       </div>
@@ -664,7 +664,7 @@
       <div class="combo-pop" id="cat-combo-pop" hidden>
         <div class="combo-search-wrap">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
-          <input id="cat-combo-search" type="search" placeholder="Search categories…" autocomplete="off" spellcheck="false">
+          <input id="cat-combo-search" type="search" placeholder="Search categories..." autocomplete="off" spellcheck="false">
         </div>
         <div class="combo-list" id="cat-combo-list" role="listbox"></div>
       </div>
@@ -680,7 +680,7 @@
   <aside id="aside">
     <div id="status">
       <div class="spinner"></div>
-      <div>Loading nodes data…</div>
+      <div>Loading nodes data...</div>
       <div class="progress" id="progress"></div>
     </div>
     <div id="list" hidden></div>
@@ -750,8 +750,9 @@ async function loadData() {
   try {
     const resp = await fetch("./data/nodes.json");
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    const total = +resp.headers.get("Content-Length") || 0;
-    if (total && resp.body) {
+    const compressed = !!resp.headers.get("Content-Encoding");
+    const total = compressed ? 0 : (+resp.headers.get("Content-Length") || 0);
+    if (resp.body) {
       const reader = resp.body.getReader();
       const chunks = [];
       let received = 0;
@@ -760,7 +761,7 @@ async function loadData() {
         if (done) break;
         chunks.push(value);
         received += value.length;
-        els.progress.textContent = `${(received / 1048576).toFixed(1)} / ${(total / 1048576).toFixed(1)} MB`;
+        els.progress.textContent = formatLoadProgress(received, total);
       }
       const blob = new Blob(chunks);
       return JSON.parse(await blob.text());
@@ -768,7 +769,7 @@ async function loadData() {
     return await resp.json();
   } catch (e) {
     els.status.classList.add("error");
-    els.status.innerHTML = `<strong>Failed to load <code>data/nodes.json</code></strong><br><br>${escapeHtml(e.message)}<br><br>请将 <code>runninghub_COMPLETE_PARAMS_*_nodes.json</code> 复制到 <code>comfyui-nodes/data/nodes.json</code> 后刷新。`;
+    els.status.innerHTML = `<strong>Failed to load <code>data/nodes.json</code></strong><br><br>${escapeHtml(e.message)}<br><br>Please copy <code>runninghub_COMPLETE_PARAMS_*_nodes.json</code> to <code>comfyui-nodes/data/nodes.json</code> and refresh.`;
     throw e;
   }
 }
@@ -1126,7 +1127,7 @@ function renderDetail(name, node) {
     const tdef = Array.isArray(v) ? v[0] : v;
     const opts = (Array.isArray(v) && v.length > 1 && typeof v[1] === "object") ? v[1] : {};
     const isEnum = Array.isArray(tdef);
-    const typeLabel = isEnum ? `enum · ${tdef.length}` : String(tdef);
+    const typeLabel = isEnum ? `enum \u00b7 ${tdef.length}` : String(tdef);
 
     let metaItems = "";
     if ("default" in opts) {
@@ -1138,7 +1139,7 @@ function renderDetail(name, node) {
       if ("max" in opts) range.push(`max ${opts.max}`);
       if ("step" in opts) range.push(`step ${opts.step}`);
       if (range.length) {
-        metaItems += `<div><dt>range</dt><dd>${escapeHtml(range.join(" · "))}</dd></div>`;
+        metaItems += `<div><dt>range</dt><dd>${escapeHtml(range.join(" \u00b7 "))}</dd></div>`;
       }
     }
 
@@ -1181,8 +1182,8 @@ function renderDetail(name, node) {
       ${node.display_name && node.display_name !== name ? `<span class="display-name">${escapeHtml(node.display_name)}</span>` : ""}
     </div>
     <div class="badges">
-      ${node.python_module ? `<span class="badge pack jump" data-jump="pack" data-value="${escapeAttr(node.python_module)}" title="Show all nodes in this pack">pack · ${escapeHtml(node.python_module)}</span>` : ""}
-      ${node.category ? `<span class="badge cat jump" data-jump="category" data-value="${escapeAttr(node.category)}" title="Show all nodes in this category">cat · ${escapeHtml(node.category)}</span>` : ""}
+      ${node.python_module ? `<span class="badge pack jump" data-jump="pack" data-value="${escapeAttr(node.python_module)}" title="Show all nodes in this pack">pack &middot; ${escapeHtml(node.python_module)}</span>` : ""}
+      ${node.category ? `<span class="badge cat jump" data-jump="category" data-value="${escapeAttr(node.category)}" title="Show all nodes in this category">cat &middot; ${escapeHtml(node.category)}</span>` : ""}
       ${node.output_node ? `<span class="badge feature">output node</span>` : ""}
     </div>
     ${node.description ? `<div class="description">${escapeHtml(node.description)}</div>` : ""}
@@ -1197,6 +1198,15 @@ function renderDetail(name, node) {
 }
 
 /* ===== UTILS ===== */
+function formatMB(bytes) {
+  return `${(bytes / 1048576).toFixed(1)} MB`;
+}
+
+function formatLoadProgress(received, total) {
+  if (!total || received > total * 1.05) return `${formatMB(received)} loaded`;
+  const pct = Math.min(100, (received / total) * 100);
+  return `${formatMB(received)} / ${formatMB(total)} (${pct.toFixed(0)}%)`;
+}
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 }
@@ -1235,3 +1245,6 @@ window.addEventListener("hashchange", () => {
 </script>
 </body>
 </html>
+
+
+
