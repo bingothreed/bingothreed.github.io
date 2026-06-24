@@ -10,7 +10,7 @@ image:
     path: ../assets/img/photos/DNA2_Standalone.png
 ---
 
-> **更新说明（2026-06-25）**：本文前半部分记录的是 UE5.6/5.7 时代的方案（从 Maya 插件提取 DNA 库），**仅作历史参考**。UE5.8 带来了全新的 DNA 工具链，包括 **OpenRigLogic（MIT 开源）**、**引擎内建 DNACalibLib**、以及 **独立的 DNA Asset 类型**。如果你使用的是 UE5.8+，请直接跳到 [第 3 节](#3-ue58-新纪元-openriglogic--dnacaliblib)。
+> **更新说明（2026-06-25）**：本文前半部分记录的是 UE5.6/5.7 时代的方案（从 Maya 插件提取 DNA 库），**仅作历史参考**。UE5.8 带来了全新的 DNA 工具链，包括 **OpenRigLogic（MIT 开源）**、**引擎内建 DNACalibLib**、以及 **独立的 DNA Asset 类型**。如果你使用的是 UE5.8+，请直接跳到 [第 3 节](#section-ue58)。
 
 ## 1. Introduction（UE5.5-5.7 时代背景）
 
@@ -85,6 +85,7 @@ ImportError: DLL load failed while importing _py3dna9_4_7: 找不到指定的模
 
 ---
 
+<a id="section-ue58"></a>
 ## 3. UE5.8 新纪元：OpenRigLogic + DNACalibLib
 
 UE5.8（2026年6月发布，UE5 最后一个大版本）对 MetaHuman DNA 工具链进行了**彻底重构**。以下是所有关键变化。
