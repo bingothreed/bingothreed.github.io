@@ -135,3 +135,171 @@ UE5.8 Content Browser → 右键 SkeletalMesh → DNA Actions → Update mesh wi
 </code></pre>
 
 </div>
+
+<div id="lang-en">
+
+<h2>5. Additional Tool — DNAUpdater.py (PyQt5 Standalone)</h2>
+
+<p>In addition to the UE5 Editor plugin, a <strong>standalone PyQt5 desktop tool</strong> is also provided for DNA file operations outside the engine — inspection, JSON round-trip, OBJ extraction, and mesh merge/restore for sculpting workflows.</p>
+
+<h3>5.1 Launch</h3>
+
+<pre><code>cd E:\Code\python\PyQT
+python DNAUpdater.py
+</code></pre>
+
+<p><strong>Dependencies:</strong> Python 3.11+, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy.</p>
+
+<h3>5.2 UI Layout</h3>
+
+<pre><code>┌──────────────────────────────────────────────────┐
+│ Head DNA: [path]                 [Choose...] ┌──┐│
+│ Body DNA: [path]                 [Choose...] │EN││
+│ Output path: [D:/]                           └──┘│
+├──────────────────────────────────────────────────┤
+│ PART1 : Modify DNA (BaseMesh / BlendShape)       │
+│ PART2 : Full Body (Merge / Restore)              │
+│ PART4 : DNA Inspector & Tools                    │
+│   [Load Info] [Validate] [Export JSON] ...       │
+└──────────────────────────────────────────────────┘
+</code></pre>
+
+<p>Click the <strong>EN / 中</strong> button at the top-right to toggle between English and Chinese.</p>
+
+<h3>5.3 Part 1 — Modify DNA (BaseMesh / BlendShape)</h3>
+
+<p>Write sculpted OBJ meshes back into a DNA file. Supports both BaseMesh and BlendShape modifications, batchable via a task list.</p>
+
+<ol>
+  <li>Select <strong>Head DNA</strong> at the top</li>
+  <li>Set <strong>Output path</strong></li>
+  <li>Choose <strong>BaseMesh</strong> or <strong>BlendShape</strong></li>
+  <li>Click <strong>Choose OBJ</strong> and select the sculpted file</li>
+  <li>Pick the target name from the dropdown</li>
+  <li>Click <strong>Add to list</strong></li>
+  <li>Click <strong>Write</strong> → outputs <code>modified_&lt;name&gt;.dna</code></li>
+</ol>
+
+<p><strong>Note:</strong> OBJ vertex count must match the target mesh in the DNA file.</p>
+
+<h3>5.4 Part 2 — Full Body (Merge / Restore)</h3>
+
+<p><strong>Merge:</strong> Combines head mesh (from Head DNA) and body mesh (from Body DNA) into a single full-body OBJ for sculpting in external 3D software.</p>
+
+<p><strong>Restore:</strong> Takes the sculpted full-body OBJ, splits it back into head and body components, and writes both back into separate DNA files.</p>
+
+<p>Restore outputs <strong>4 files</strong>:</p>
+<ul>
+  <li><code>Restored_Head_&lt;name&gt;.dna</code></li>
+  <li><code>Restored_Body_&lt;name&gt;.dna</code></li>
+  <li><code>Restored_Head.obj</code></li>
+  <li><code>Restored_Body.obj</code></li>
+</ul>
+
+<h3>5.5 Part 4 — DNA Inspector &amp; Tools</h3>
+
+<p><strong>DNA Info:</strong> Load a DNA file and inspect its full structure — descriptor, meshes (vertex/face counts), BlendShape channels (delta counts), joint hierarchy, metadata, and validation status — all in an expandable tree view.</p>
+
+<p><strong>DNA ↔ JSON:</strong></p>
+<ul>
+  <li><strong>Export DNA to JSON</strong> — complete round-trip-safe JSON export including all geometry and behavior data. Uses compact flat arrays for manageable file size.</li>
+  <li><strong>Import JSON to DNA</strong> — reconstruct a DNA file from JSON.</li>
+</ul>
+
+<p><strong>DNA → OBJ:</strong> Extract individual or all meshes from a DNA file as OBJ files (vertices, UVs, normals, faces) for use in external 3D software.</p>
+
+<h3>5.6 File Structure</h3>
+
+<pre><code>PyQT/
+├── DNAUpdater.py           # Main GUI
+├── ModifyDNA.py            # DNA I/O &amp; mesh merge/restore
+├── DNAInspector.py         # DNA info, JSON, OBJ export/import
+├── RigLogicPreview.py      # RigLogic evaluation (commented out)
+└── libs/dnalib/            # Legacy DNA library (fallback)
+</code></pre>
+
+</div>
+
+<div id="lang-zh">
+
+<h2>5. 附加工具 — DNAUpdater.py（PyQt5 独立桌面版）</h2>
+
+<p>除了 UE5 编辑器插件，本仓库还提供了一个 <strong>独立的 PyQt5 桌面工具</strong>，用于在引擎外部操作 DNA 文件——包括 DNA 信息查看、JSON 往返转换、OBJ 网格提取，以及全身雕刻工作流的合并与还原。</p>
+
+<h3>5.1 启动</h3>
+
+<pre><code>cd E:\Code\python\PyQT
+python DNAUpdater.py
+</code></pre>
+
+<p><strong>依赖：</strong> Python 3.11+, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy。</p>
+
+<h3>5.2 界面布局</h3>
+
+<pre><code>┌──────────────────────────────────────────────────┐
+│ Head DNA: [path]                 [Choose...] ┌──┐│
+│ Body DNA: [path]                 [Choose...] │中││
+│ Output path: [D:/]                           └──┘│
+├──────────────────────────────────────────────────┤
+│ PART1 : 修改 DNA (基础网格 / 变形目标)           │
+│ PART2 : 全身处理 (合并 / 还原)                   │
+│ PART4 : DNA 检查器 & 工具                        │
+│   [加载信息] [验证] [导出JSON] ...               │
+└──────────────────────────────────────────────────┘
+</code></pre>
+
+<p>右上角的 <strong>中 / EN</strong> 按钮可随时切换界面语言。</p>
+
+<h3>5.3 Part 1 — 修改 DNA（BaseMesh / BlendShape）</h3>
+
+<p>将雕刻后的 OBJ 网格数据写回 DNA 文件。支持基础网格和变形目标的批量修改。</p>
+
+<ol>
+  <li>顶部选择 <strong>Head DNA</strong> 文件</li>
+  <li>设置 <strong>输出路径</strong></li>
+  <li>选择 <strong>BaseMesh</strong> 或 <strong>BlendShape</strong></li>
+  <li>点击 <strong>Choose OBJ</strong> 选择雕刻后的文件</li>
+  <li>从下拉框中选择目标名称</li>
+  <li>点击 <strong>Add to list</strong></li>
+  <li>点击 <strong>Write</strong> → 输出 <code>modified_&lt;名称&gt;.dna</code></li>
+</ol>
+
+<p><strong>注意：</strong> OBJ 顶点数必须与 DNA 中目标 mesh 的顶点数一致。</p>
+
+<h3>5.4 Part 2 — 全身处理（Merge / Restore）</h3>
+
+<p><strong>合并（Merge）：</strong> 将头部 DNA 的头部网格与身体 DNA 的身体网格合并为单个全身 OBJ，方便在 Maya/Blender 中统一雕刻。</p>
+
+<p><strong>还原（Restore）：</strong> 将雕刻后的全身 OBJ 拆分回头部和身体，分别写回独立的 DNA 文件和 OBJ 文件。</p>
+
+<p>还原输出 <strong>4 个文件</strong>：</p>
+<ul>
+  <li><code>Restored_Head_&lt;名称&gt;.dna</code></li>
+  <li><code>Restored_Body_&lt;名称&gt;.dna</code></li>
+  <li><code>Restored_Head.obj</code></li>
+  <li><code>Restored_Body.obj</code></li>
+</ul>
+
+<h3>5.5 Part 4 — DNA 检查器 &amp; 工具</h3>
+
+<p><strong>DNA 信息查看：</strong> 加载 DNA 文件后以树形结构展示完整信息——描述符、Mesh（顶点/面数）、BlendShape 通道（delta 数量）、关节层级、元数据和验证状态。</p>
+
+<p><strong>DNA ↔ JSON：</strong></p>
+<ul>
+  <li><strong>Export DNA to JSON</strong> — 完整导出 DNA 为 JSON（含 geometry + behavior），使用紧凑 flat array 格式控制文件大小，支持完整往返还原。</li>
+  <li><strong>Import JSON to DNA</strong> — 从 JSON 文件重建 DNA。</li>
+</ul>
+
+<p><strong>DNA → OBJ：</strong> 从 DNA 中提取指定或全部 mesh 为 OBJ 文件（含顶点、UV、法线、面），供外部 3D 软件使用。</p>
+
+<h3>5.6 文件结构</h3>
+
+<pre><code>PyQT/
+├── DNAUpdater.py           # 主界面
+├── ModifyDNA.py            # DNA 读写 & 网格合并/还原
+├── DNAInspector.py         # DNA 信息、JSON/OBJ 导出导入
+├── RigLogicPreview.py      # RigLogic 评估（已注释）
+└── libs/dnalib/            # 旧版 DNA 库（备用）
+</code></pre>
+
+</div>
