@@ -1,7 +1,7 @@
 ---
 layout: post
 title: DNAUpdater — MetaHuman DNA Update Tool for UE5.8
-date: 2026-06-25 19:30:00 +0800
+date: 2026-06-24 19:30:00 +0800
 categories: [Coding]
 tags: [UE5, MetaHuman, DNA]
 comments: true
