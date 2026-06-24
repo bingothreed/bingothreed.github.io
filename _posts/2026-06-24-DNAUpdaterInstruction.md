@@ -11,18 +11,45 @@ image:
 ---
 
 <style>
-.lang-switch { display: inline-flex; border: 1px solid #ccc; border-radius: 4px; overflow: hidden; margin-bottom: 1em; }
-.lang-switch button { border: none; padding: 4px 14px; cursor: pointer; background: #f5f5f5; font-size: 13px; }
-.lang-switch button.active { background: #007bff; color: #fff; }
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--bs-border-color, #d0d5dd);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1.2em;
+  font-size: 13px;
+}
+.lang-switch button {
+  border: none;
+  padding: 5px 18px;
+  cursor: pointer;
+  background: transparent;
+  color: var(--bs-body-color, #555);
+  font-size: inherit;
+  transition: all 0.2s;
+}
+.lang-switch button.active {
+  background: var(--bs-primary, #6c757d);
+  color: #fff;
+}
 .lang-zh { display: none; }
 </style>
 
+<script>
+function switchLang(lang) {
+  document.querySelectorAll('.lang-en, .lang-zh').forEach(el => el.style.display = 'none');
+  document.querySelectorAll('.lang-' + lang).forEach(el => el.style.display = 'block');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
+}
+</script>
+
 <div class="lang-switch">
-  <button id="btn-en" class="active" onclick="document.getElementById('lang-en').style.display='block';document.getElementById('lang-zh').style.display='none';document.getElementById('btn-en').classList.add('active');document.getElementById('btn-zh').classList.remove('active');">English</button>
-  <button id="btn-zh" onclick="document.getElementById('lang-zh').style.display='block';document.getElementById('lang-en').style.display='none';document.getElementById('btn-zh').classList.add('active');document.getElementById('btn-en').classList.remove('active');">中文</button>
+  <button id="btn-en" class="active" onclick="switchLang('en')">English</button>
+  <button id="btn-zh" onclick="switchLang('zh')">中文</button>
 </div>
 
-<div id="lang-en">
+<div class="lang-en">
 
 <h2>1. Background</h2>
 
@@ -79,7 +106,7 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 
 </div>
 
-<div id="lang-zh">
+<div class="lang-zh">
 
 <h2>1. 背景</h2>
 
@@ -136,19 +163,18 @@ UE5.8 Content Browser → 右键 SkeletalMesh → DNA Actions → Update mesh wi
 
 </div>
 
-<div id="lang-en">
+<div class="lang-en">
 
 <h2>5. Additional Tool — DNAUpdater.py (PyQt5 Standalone)</h2>
 
 <p>In addition to the UE5 Editor plugin, a <strong>standalone PyQt5 desktop tool</strong> is also provided for DNA file operations outside the engine — inspection, JSON round-trip, OBJ extraction, and mesh merge/restore for sculpting workflows.</p>
 
-<h3>5.1 Launch</h3>
+<h3>5.1 Download</h3>
 
-<pre><code>cd E:\Code\python\PyQT
-python DNAUpdater.py
-</code></pre>
+<p>Download the standalone tool here:<br>
+<a href="https://1drv.ms/u/c/53c607b8bea23158/IQDLh3LN0mbqTp7eF_kORY_GAYrqzcaA43JfiUVHRohp9LE?e=41uFfo" target="_blank">DNAUpdater_PyQT.zip (OneDrive)</a></p>
 
-<p><strong>Dependencies:</strong> Python 3.11+, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy.</p>
+<p><strong>Dependencies:</strong> Python 3.14.6, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy.</p>
 
 <h3>5.2 UI Layout</h3>
 
@@ -220,19 +246,18 @@ python DNAUpdater.py
 
 </div>
 
-<div id="lang-zh">
+<div class="lang-zh">
 
 <h2>5. 附加工具 — DNAUpdater.py（PyQt5 独立桌面版）</h2>
 
 <p>除了 UE5 编辑器插件，本仓库还提供了一个 <strong>独立的 PyQt5 桌面工具</strong>，用于在引擎外部操作 DNA 文件——包括 DNA 信息查看、JSON 往返转换、OBJ 网格提取，以及全身雕刻工作流的合并与还原。</p>
 
-<h3>5.1 启动</h3>
+<h3>5.1 下载</h3>
 
-<pre><code>cd E:\Code\python\PyQT
-python DNAUpdater.py
-</code></pre>
+<p>在此下载独立工具：<br>
+<a href="https://1drv.ms/u/c/53c607b8bea23158/IQDLh3LN0mbqTp7eF_kORY_GAYrqzcaA43JfiUVHRohp9LE?e=41uFfo" target="_blank">DNAUpdater_PyQT.zip (OneDrive)</a></p>
 
-<p><strong>依赖：</strong> Python 3.11+, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy。</p>
+<p><strong>依赖：</strong> Python 3.14.6, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy。</p>
 
 <h3>5.2 界面布局</h3>
 
