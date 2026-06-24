@@ -85,8 +85,8 @@ ImportError: DLL load failed while importing _py3dna9_4_7: 找不到指定的模
 
 ---
 
-<a id="section-ue58"></a>
 ## 3. UE5.8 新纪元：OpenRigLogic + DNACalibLib
+{: #section-ue58}
 
 UE5.8（2026年6月发布，UE5 最后一个大版本）对 MetaHuman DNA 工具链进行了**彻底重构**。以下是所有关键变化。
 
