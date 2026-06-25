@@ -61,7 +61,7 @@ function switchLang(lang) {
 
 <h2>2. Usage</h2>
 
-<p>In the Content Browser, <strong>right-click any SkeletalMesh</strong> (MetaHuman body or head) and navigate to <strong>DNA Actions</strong>:</p>
+<p>In the Content Browser, <strong>right-click any SkeletalMesh</strong> (MetaHuman body or head) and navigate to <strong>Metahuman Updater</strong>:</p>
 
 <h3>2.1 Update mesh with DNA file</h3>
 
@@ -75,8 +75,8 @@ function switchLang(lang) {
 <ul>
   <li>Updates neutral-pose vertex positions</li>
   <li>Updates all Morph Targets (BlendShapes)</li>
-  <li>Updates eye-region skin weights</li>
-  <li>Updates skeleton Reference Pose (root joint is skipped automatically)</li>
+  <li>Updates skin weights</li>
+  <li>Updates skeleton (root joint is skipped automatically, to avoid coordinate system artifacts)</li>
   <li>Creates/updates the <code>UDNA</code> asset for RigLogic compatibility</li>
 </ul>
 
@@ -106,7 +106,7 @@ function switchLang(lang) {
        ↓
 Export new .dna file
        ↓
-UE5.8 Content Browser → Right-click SkeletalMesh → DNA Actions → Update mesh with DNA file
+UE5.8 Content Browser → Right-click SkeletalMesh → Metahuman Updater → Update mesh with DNA file
        ↓
 Choose .dna file → Done
        ↓
@@ -127,7 +127,7 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 
 <h2>2. 使用</h2>
 
-<p>在 Content Browser 中，<strong>右键点击任意 SkeletalMesh 资产</strong>（MetaHuman 身体或头部），找到 <strong>DNA Actions</strong> 子菜单：</p>
+<p>在 Content Browser 中，<strong>右键点击任意 SkeletalMesh 资产</strong>（MetaHuman 身体或头部），找到 <strong>Metahuman Updater</strong> 子菜单：</p>
 
 <h3>2.1 Update mesh with DNA file</h3>
 
@@ -141,8 +141,8 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 <ul>
   <li>更新网格顶点位置（中性姿态）</li>
   <li>更新所有 Morph Target（融合变形）</li>
-  <li>更新眼部蒙皮权重</li>
-  <li>更新骨骼 Reference Pose（根关节自动跳过，避免坐标系伪影）</li>
+  <li>更新蒙皮权重</li>
+  <li>更新骨骼信息（根关节自动跳过，避免坐标系伪影）</li>
   <li>创建/更新 <code>UDNA</code> 资产，确保 RigLogic 运行时正确</li>
 </ul>
 
@@ -155,9 +155,7 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
   <p><em>Figure 2. Add blendshape for SkeletalMesh.</em></p>
 </div>
 
-<p>从 OBJ 文件添加一个新的 Morph Target。OBJ 使用 Maya 坐标系（Y-up），插件自动转换为 UE 坐标系。</p>
-
-<p>适用场景：在 Maya 中雕刻了一个新的面部表情，导出 OBJ，添加到已有网格上。</p>
+<p>适用场景：在 Maya 中雕刻了一个新的面部表情，导出 OBJ，添加一个新的 Morph Target到已有网格上。</p>
 
 <h2>3. 注意事项</h2>
 
@@ -185,7 +183,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 
 <h2>5. Additional Tool — DNAUpdater.exe (PyQt5 Standalone)</h2>
 
-<p>In addition to the UE5 Editor plugin, a <strong>standalone PyQt5 desktop tool</strong> is also provided for DNA file operations outside the engine — inspection, JSON round-trip, OBJ extraction, and mesh merge/restore for sculpting workflows.</p>
+<p>In addition to the UE5 Editor plugin, a <strong>standalone PyQt5 desktop tool</strong> is also provided for DNA file operations outside the engine — modifying DNA internal meshes (base mesh, BlendShape meshes), full-body sculpting workflow merge &amp; restore, DNA inspection, JSON round-trip, and OBJ extraction.</p>
 
 <h3>5.1 Download</h3>
 
@@ -203,12 +201,17 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 ├──────────────────────────────────────────────────┤
 │ PART1 : Modify DNA (BaseMesh / BlendShape)       │
 │ PART2 : Full Body (Merge / Restore)              │
-│ PART4 : DNA Inspector & Tools                    │
+│ PART3 : DNA Inspector & Tools                    │
 │   [Load Info] [Validate] [Export JSON] ...       │
 └──────────────────────────────────────────────────┘
 </code></pre>
 
-<p>Click the <strong>EN / 中</strong> button at the top-right to toggle between English and Chinese.</p>
+<div style="text-align: center; margin: 16px 0;">
+  <img src="../assets/img/photos/DNAUpdaterEXE.png" alt="Update mesh with DNA file in the Content Browser">
+  <p><em>Figure 3. DNAUpdater.exe UI preview.</em></p>
+</div>
+
+<p>Click the <strong>中 / EN</strong> button at the top-right to toggle between English and Chinese.</p>
 
 <h3>5.3 Part 1 — Modify DNA (BaseMesh / BlendShape)</h3>
 
@@ -240,7 +243,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
   <li><code>Restored_Body.obj</code></li>
 </ul>
 
-<h3>5.5 Part 4 — DNA Inspector &amp; Tools</h3>
+<h3>5.5 Part 3 — DNA Inspector &amp; Tools</h3>
 
 <p><strong>DNA Info:</strong> Load a DNA file and inspect its full structure — descriptor, meshes (vertex/face counts), BlendShape channels (delta counts), joint hierarchy, metadata, and validation status — all in an expandable tree view.</p>
 
@@ -252,23 +255,13 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 
 <p><strong>DNA → OBJ:</strong> Extract individual or all meshes from a DNA file as OBJ files (vertices, UVs, normals, faces) for use in external 3D software.</p>
 
-<h3>5.6 File Structure</h3>
-
-<pre><code>PyQT/
-├── DNAUpdater.py           # Main GUI
-├── ModifyDNA.py            # DNA I/O &amp; mesh merge/restore
-├── DNAInspector.py         # DNA info, JSON, OBJ export/import
-├── RigLogicPreview.py      # RigLogic evaluation (commented out)
-└── libs/dnalib/            # Legacy DNA library (fallback)
-</code></pre>
-
 </div>
 
 <div class="lang-zh">
 
 <h2>5. 附加工具 — DNAUpdater.exe（PyQt5 独立桌面版）</h2>
 
-<p>除了 UE5 编辑器插件，本仓库还提供了一个 <strong>独立的 PyQt5 桌面工具</strong>，用于在引擎外部操作 DNA 文件——包括 DNA 信息查看、JSON 往返转换、OBJ 网格提取，以及全身雕刻工作流的合并与还原。</p>
+<p>除了 UE5 编辑器插件，还提供了一个 <strong>独立的 PyQt5 桌面工具</strong>，用于在引擎外部操作 DNA 文件——包括 修改DNAn内部网格体(基础网格体，表情网格体)、全身雕刻工作流的合并与还原、DNA 信息查看、JSON 往返转换、OBJ 网格提取。</p>
 
 <h3>5.1 下载</h3>
 
@@ -284,12 +277,17 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 │ Body DNA: [path]                 [Choose...] │中││
 │ Output path: [D:/]                           └──┘│
 ├──────────────────────────────────────────────────┤
-│ PART1 : 修改 DNA (基础网格 / 变形目标)           │
-│ PART2 : 全身处理 (合并 / 还原)                   │
-│ PART4 : DNA 检查器 & 工具                        │
-│   [加载信息] [验证] [导出JSON] ...               │
+│ PART1 : 修改 DNA (基础网格 / 变形目标)             │
+│ PART2 : 全身处理 (合并 / 还原)                     │
+│ PART3 : DNA 检查器 & 工具                         │
+│   [加载信息] [验证] [导出JSON] ...                 │
 └──────────────────────────────────────────────────┘
 </code></pre>
+
+<div style="text-align: center; margin: 16px 0;">
+  <img src="../assets/img/photos/DNAUpdaterEXE_CH.png" alt="Update mesh with DNA file in the Content Browser">
+  <p><em>Figure 3. DNAUpdater.exe UI preview.</em></p>
+</div>
 
 <p>右上角的 <strong>中 / EN</strong> 按钮可随时切换界面语言。</p>
 
@@ -323,7 +321,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
   <li><code>Restored_Body.obj</code></li>
 </ul>
 
-<h3>5.5 Part 4 — DNA 检查器 &amp; 工具</h3>
+<h3>5.5 Part 3 — DNA 检查器 &amp; 工具</h3>
 
 <p><strong>DNA 信息查看：</strong> 加载 DNA 文件后以树形结构展示完整信息——描述符、Mesh（顶点/面数）、BlendShape 通道（delta 数量）、关节层级、元数据和验证状态。</p>
 
@@ -334,15 +332,5 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 </ul>
 
 <p><strong>DNA → OBJ：</strong> 从 DNA 中提取指定或全部 mesh 为 OBJ 文件（含顶点、UV、法线、面），供外部 3D 软件使用。</p>
-
-<h3>5.6 文件结构</h3>
-
-<pre><code>PyQT/
-├── DNAUpdater.py           # 主界面
-├── ModifyDNA.py            # DNA 读写 & 网格合并/还原
-├── DNAInspector.py         # DNA 信息、JSON/OBJ 导出导入
-├── RigLogicPreview.py      # RigLogic 评估（已注释）
-└── libs/dnalib/            # 旧版 DNA 库（备用）
-</code></pre>
 
 </div>
