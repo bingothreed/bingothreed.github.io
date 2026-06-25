@@ -7,7 +7,7 @@ tags: [UE5, MetaHuman, DNA]
 comments: true
 math: false
 image:
-    path: ../assets/img/photos/Compare43.png
+    path: ../assets/img/photos/Compare43_copy.png
 ---
 
 <style>
@@ -66,7 +66,7 @@ function switchLang(lang) {
 <h3>2.1 Update mesh with DNA file</h3>
 
 <div style="text-align: center; margin: 16px 0;">
-  ../assets/img/photos/DNAUpdater_UpdateMesh.png
+  <img src="../assets/img/photos/DNAUpdater_UpdateMesh.png" alt="Update mesh with DNA file in the Content Browser">
   <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
 </div>
 
@@ -86,7 +86,12 @@ function switchLang(lang) {
 
 <div style="text-align: center; margin: 16px 0;">
   ../assets/img/photos/DNAUpdater_AddBS.png
-  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+  <p><em>Figure 2. Update mesh with DNA file in the Content Browser.</em></p>
+</div>
+
+<div style="text-align: center; margin: 16px 0;">
+  <img src="../assets/img/photos/DNAUpdater_AddBS.png" alt="Update mesh with DNA file in the Content Browser">
+  <p><em>Figure 2. Add blendshape for SkeletalMesh.</em></p>
 </div>
 
 <p>Add a new Morph Target from an OBJ file. OBJ is expected in Maya coordinate space (Y-up); the plugin converts to UE space automatically.</p>
@@ -133,7 +138,7 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 <h3>2.1 Update mesh with DNA file</h3>
 
 <div style="text-align: center; margin: 16px 0;">
-  ../assets/img/photos/DNAUpdater_UpdateMesh.png
+  <img src="../assets/img/photos/DNAUpdater_UpdateMesh.png" alt="Update mesh with DNA file in the Content Browser">
   <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
 </div>
 
@@ -152,8 +157,8 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 <h3>2.2 Add a blendshape</h3>
 
 <div style="text-align: center; margin: 16px 0;">
-  ../assets/img/photos/DNAUpdater_AddBS.png
-  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+  <img src="../assets/img/photos/DNAUpdater_AddBS.png" alt="Update mesh with DNA file in the Content Browser">
+  <p><em>Figure 2. Add blendshape for SkeletalMesh.</em></p>
 </div>
 
 <p>从 OBJ 文件添加一个新的 Morph Target。OBJ 使用 Maya 坐标系（Y-up），插件自动转换为 UE 坐标系。</p>
