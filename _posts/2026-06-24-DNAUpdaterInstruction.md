@@ -85,11 +85,6 @@ function switchLang(lang) {
 <h3>2.2 Add a blendshape</h3>
 
 <div style="text-align: center; margin: 16px 0;">
-  ../assets/img/photos/DNAUpdater_AddBS.png
-  <p><em>Figure 2. Update mesh with DNA file in the Content Browser.</em></p>
-</div>
-
-<div style="text-align: center; margin: 16px 0;">
   <img src="../assets/img/photos/DNAUpdater_AddBS.png" alt="Update mesh with DNA file in the Content Browser">
   <p><em>Figure 2. Add blendshape for SkeletalMesh.</em></p>
 </div>
