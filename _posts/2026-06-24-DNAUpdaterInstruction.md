@@ -188,7 +188,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 <h3>5.1 Download</h3>
 
 <p>Download the standalone tool here:<br>
-<a href="https://1drv.ms/u/c/53c607b8bea23158/IQDLh3LN0mbqTp7eF_kORY_GAYrqzcaA43JfiUVHRohp9LE?e=41uFfo" target="_blank">DNAUpdater.exe</a></p>
+<a href="https://1drv.ms/u/c/53c607b8bea23158/IQAolfjpTT0nTaVGxBmaPDczATXRH1BPDRvnAtj6mqLSip8?e=RAD778" target="_blank">DNAUpdater.exe</a></p>
 
 <p><strong>Dependencies:</strong> Python 3.14.6, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy.</p>
 
@@ -266,7 +266,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update m
 <h3>5.1 下载</h3>
 
 <p>在此下载独立工具：<br>
-<a href="https://1drv.ms/u/c/53c607b8bea23158/IQDLh3LN0mbqTp7eF_kORY_GAYrqzcaA43JfiUVHRohp9LE?e=41uFfo" target="_blank">DNAUpdater.exe</a></p>
+<a href="https://1drv.ms/u/c/53c607b8bea23158/IQAolfjpTT0nTaVGxBmaPDczATXRH1BPDRvnAtj6mqLSip8?e=RAD778" target="_blank">DNAUpdater.exe</a></p>
 
 <p><strong>依赖：</strong> Python 3.14.6, PyQt5, OpenRigLogic v13.2.7, NumPy, SciPy。</p>
 
