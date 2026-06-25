@@ -96,7 +96,6 @@ function switchLang(lang) {
 <h2>3. Notes</h2>
 
 <ul>
-  <li>LOD0 only</li>
   <li>MetaHuman DNA files only</li>
   <li>Editor-only (not packaged at runtime)</li>
 </ul>
@@ -163,7 +162,6 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 <h2>3. 注意事项</h2>
 
 <ul>
-  <li>仅支持 LOD0</li>
   <li>仅适用于 MetaHuman 管线生成的 DNA 文件</li>
   <li>仅编辑器可用，不会打包到运行时</li>
 </ul>
@@ -174,7 +172,7 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
        ↓
 导出新的 .dna 文件
        ↓
-UE5.8 Content Browser → 右键 SkeletalMesh → DNA Actions → Update mesh with DNA file
+UE5.8 Content Browser → 右键 SkeletalMesh → Metahuman Updater → Update mesh with DNA file
        ↓
 选择 .dna 文件 → 完成
        ↓
@@ -185,7 +183,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → DNA Actions → Update mesh wi
 
 <div class="lang-en">
 
-<h2>5. Additional Tool — DNAUpdater.py (PyQt5 Standalone)</h2>
+<h2>5. Additional Tool — DNAUpdater.exe (PyQt5 Standalone)</h2>
 
 <p>In addition to the UE5 Editor plugin, a <strong>standalone PyQt5 desktop tool</strong> is also provided for DNA file operations outside the engine — inspection, JSON round-trip, OBJ extraction, and mesh merge/restore for sculpting workflows.</p>
 
@@ -268,7 +266,7 @@ UE5.8 Content Browser → 右键 SkeletalMesh → DNA Actions → Update mesh wi
 
 <div class="lang-zh">
 
-<h2>5. 附加工具 — DNAUpdater.py（PyQt5 独立桌面版）</h2>
+<h2>5. 附加工具 — DNAUpdater.exe（PyQt5 独立桌面版）</h2>
 
 <p>除了 UE5 编辑器插件，本仓库还提供了一个 <strong>独立的 PyQt5 桌面工具</strong>，用于在引擎外部操作 DNA 文件——包括 DNA 信息查看、JSON 往返转换、OBJ 网格提取，以及全身雕刻工作流的合并与还原。</p>
 
