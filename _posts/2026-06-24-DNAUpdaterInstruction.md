@@ -7,7 +7,7 @@ tags: [UE5, MetaHuman, DNA]
 comments: true
 math: false
 image:
-    path: ../assets/img/photos/DNAUpdaterTitle.png
+    path: ../assets/img/photos/Compare43.png
 ---
 
 <style>
@@ -65,6 +65,11 @@ function switchLang(lang) {
 
 <h3>2.1 Update mesh with DNA file</h3>
 
+<div style="text-align: center; margin: 16px 0;">
+  ../assets/img/photos/DNAUpdater_UpdateMesh.png
+  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+</div>
+
 <p><strong>This is the main feature.</strong> Select a <code>.dna</code> file and the plugin automatically:</p>
 
 <ul>
@@ -78,6 +83,11 @@ function switchLang(lang) {
 <p><strong>One click. Head and body, all at once.</strong></p>
 
 <h3>2.2 Add a blendshape</h3>
+
+<div style="text-align: center; margin: 16px 0;">
+  ../assets/img/photos/DNAUpdater_AddBS.png
+  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+</div>
 
 <p>Add a new Morph Target from an OBJ file. OBJ is expected in Maya coordinate space (Y-up); the plugin converts to UE space automatically.</p>
 
@@ -122,6 +132,11 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 
 <h3>2.1 Update mesh with DNA file</h3>
 
+<div style="text-align: center; margin: 16px 0;">
+  ../assets/img/photos/DNAUpdater_UpdateMesh.png
+  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+</div>
+
 <p><strong>这是核心功能。</strong> 选一个 <code>.dna</code> 文件，插件自动完成：</p>
 
 <ul>
@@ -135,6 +150,11 @@ Save asset. RigLogic animations adapt to the updated mesh automatically.
 <p><strong>一句话：DNA 里有什么，就更新什么。头身通用，无需区分。</strong></p>
 
 <h3>2.2 Add a blendshape</h3>
+
+<div style="text-align: center; margin: 16px 0;">
+  ../assets/img/photos/DNAUpdater_AddBS.png
+  <p><em>Figure 1. Update mesh with DNA file in the Content Browser.</em></p>
+</div>
 
 <p>从 OBJ 文件添加一个新的 Morph Target。OBJ 使用 Maya 坐标系（Y-up），插件自动转换为 UE 坐标系。</p>
 
