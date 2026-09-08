@@ -108,6 +108,7 @@ UE5.8（2026年6月发布，UE5 最后一个大版本）对 MetaHuman DNA 工具
 ```shell
 git clone https://github.com/EpicGames/OpenRigLogic.git
 cd OpenRigLogic
+rm -rf build/_deps/googlebenchmark-subbuild build/_deps/googlebenchmark-build
 mkdir build
 cd build
 cmake .. -DRL_BUILD_PYTHON_WRAPPER=3.14 -DCMAKE_BUILD_TYPE=Release
